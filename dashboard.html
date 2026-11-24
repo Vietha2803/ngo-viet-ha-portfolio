@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Road Freight Operations Report | Lang Son Border and Line Haul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eceff4; --panel:#ffffff; --line:#d9dee7; --grid:#e8ebf1;
+  --ink:#141b2d; --ink2:#525b6e; --ink3:#8b93a3;
+  --n9:#0c1b48; --n8:#15296a; --n7:#203e8c; --n6:#3561b0; --n5:#62a7ea; --n4:#8cbff0; --n3:#b6d6f5; --n2:#d9e8f9; --n1:#ebf3fc;
+  --y:#f2ea1e; --yT:#fbf7c9; --watch:#9aa6bd; --wT:#eceff4; --gT:#e6f0fb;
+  --dn:#8f7600; --up:#3561b0;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:13px/1.45 "Be Vietnam Pro",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.tab{font-variant-numeric:tabular-nums lining-nums}
+
+/* top bar */
+.bar{background:var(--n9);border-bottom:4px solid var(--y);color:#fff}
+.bar .in{max-width:1560px;margin:0 auto;padding:16px 26px 14px;display:flex;align-items:flex-end;gap:24px}
+.bar h1{margin:0;font-weight:800;font-size:25px;letter-spacing:-.01em;line-height:1.1}
+.bar .sub{color:#b9c6e4;font-size:12.5px;margin-top:4px}
+.filters{margin-left:auto;display:flex;gap:12px;align-items:flex-end}
+.f{display:flex;flex-direction:column;gap:3px}
+.f label{font-size:11px;color:#b9c6e4;font-weight:600}
+.f select{appearance:none;-webkit-appearance:none;font:600 13px "Be Vietnam Pro",Arial,sans-serif;color:var(--ink);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%230c1b48' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 10px center;border:0;border-radius:2px;padding:7px 30px 7px 10px;min-width:150px;cursor:pointer}
+.f select:focus{outline:2px solid var(--y);outline-offset:1px}
+.f .static{font:600 13px "Be Vietnam Pro";color:#fff;padding:7px 0}
+.f.hide{display:none}
+
+.wrap{max-width:1560px;margin:0 auto;padding:18px 26px 30px}
+.page{display:none}.page.on{display:block}
+
+/* KPI strip */
+.strip{display:grid;grid-template-columns:repeat(5,1fr);background:var(--panel);border:1px solid var(--line);margin-bottom:14px}
+.k{padding:13px 18px 10px;border-left:1px solid var(--line);min-width:0}
+.k:first-child{border-left:0}
+.k .l{font-size:12px;font-weight:600;color:var(--ink2)}
+.k .v{font-size:31px;font-weight:700;letter-spacing:-.02em;line-height:1.05;margin:5px 0 4px;color:var(--n9)}
+.k .v small{font-size:16px;font-weight:600;color:var(--ink2);margin-left:1px}
+.k .c{font-size:11.5px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k .c b{font-weight:700}
+.k .c b.dn{color:var(--dn)}.k .c b.up{color:var(--up)}.k .c b.nt{color:var(--ink)}
+.k svg{display:block;width:100%;height:26px;margin-top:6px}
+
+/* panels */
+.g{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-bottom:14px}
+.p{background:var(--panel);border:1px solid var(--line);padding:14px 16px 12px;min-width:0}
+.c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c9{grid-column:span 9}.c12{grid-column:span 12}
+.p h2{font-size:14.5px;font-weight:700;margin:0;position:relative;padding-top:9px}
+.p h2::before{content:"";position:absolute;left:0;top:0;width:26px;height:3px;background:var(--n9)}
+.p .s{font-size:11.5px;color:var(--ink2);margin:2px 0 10px}
+.sw{display:inline-block;width:10px;height:10px;vertical-align:-1px;margin:0 3px 0 8px}
+.sw.y{background:var(--y);box-shadow:inset 0 0 0 1px var(--n9)}
+
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font-family:"Be Vietnam Pro",Arial,sans-serif;font-variant-numeric:tabular-nums}
+svg path[fill="var(--y)"],svg rect[fill="var(--y)"],svg circle[fill="var(--y)"]{stroke:var(--n9);stroke-width:1.1}
+.ax{fill:var(--ink3);font-size:10.5px}
+.axs{fill:var(--ink2);font-size:10.5px;font-weight:600}
+.vl{fill:var(--ink);font-size:10.5px;font-weight:600;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+.vlb{fill:var(--ink);font-size:11.5px;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+.vw{fill:#fff;font-size:10.5px;font-weight:600}
+.an{fill:var(--ink2);font-size:10.5px;font-weight:500;paint-order:stroke;stroke:#fff;stroke-width:3px}
+.hit{fill:transparent}
+
+table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+th{font-size:11.5px;font-weight:700;color:var(--ink);text-align:right;padding:6px 8px;border-bottom:2px solid var(--n9);white-space:nowrap}
+td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--grid)}
+th.l,td.l{text-align:left}
+tr:hover td{background:#f6f8fb}
+.cb{display:flex;align-items:center;gap:7px;justify-content:flex-end}
+.cb i{display:block;height:8px;background:var(--n6)}
+.mk{display:inline-block;width:9px;height:9px;margin-right:6px;vertical-align:0}
+tr.flag td{background:var(--yT)}
+tr.sel td{background:var(--n1)!important}
+.muted{color:var(--ink3)}
+.rk{color:var(--ink3);font-weight:600;margin-right:8px;display:inline-block;width:14px}
+
+.notes h3{font-size:13px;font-weight:700;margin:0 0 6px}
+.notes p{margin:0 0 7px;font-size:12.5px;color:var(--ink)}
+.notes p b{font-weight:700}
+.notes .cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px}
+.notes .rule{border-top:1px solid var(--line);margin:10px 0}
+.foot{font-size:11px;color:var(--ink3);margin-top:8px}
+.foot a{color:var(--ink2)}
+
+.draft{border:1px solid var(--line);background:#fbfcfe;padding:12px 14px;font-size:12.5px;white-space:pre-wrap;line-height:1.55;color:var(--ink)}
+.btn{font:600 12px "Be Vietnam Pro";border:1px solid var(--n9);background:var(--n9);color:#fff;padding:6px 12px;border-radius:2px;cursor:pointer;margin-top:8px}
+.btn.ghost{background:#fff;color:var(--n9)}
+
+#tip{position:fixed;z-index:20;pointer-events:none;opacity:0;background:#fff;border:1px solid var(--line);box-shadow:0 4px 14px rgba(12,27,72,.12);font-size:12px;padding:8px 10px;min-width:170px}
+#tip .t{font-weight:700;margin-bottom:4px;border-bottom:1px solid var(--grid);padding-bottom:4px}
+#tip .r{display:flex;justify-content:space-between;gap:16px;color:var(--ink2);padding:1px 0}
+#tip .r b{color:var(--ink);font-variant-numeric:tabular-nums}
+@media(max-width:1180px){.strip{grid-template-columns:repeat(2,1fr)}.c3,.c4,.c5,.c6,.c7,.c8,.c9{grid-column:span 12}.notes .cols{grid-template-columns:1fr}.bar .in{flex-wrap:wrap}.filters{margin-left:0;flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+  <div>
+    <h1>Road Freight Operations Report</h1>
+    <div class="sub">Lang Son cross border trucking, line haul delay control and a daily truck tracker · portfolio for the Kuehne+Nagel Road Logistics Intern role · prepared by Ha</div>
+  </div>
+  <div class="filters">
+    <div class="f"><label>&nbsp;</label><a class="static" href="./" style="color:#f2ea1e;text-decoration:none">‹ Back to portfolio</a></div>
+    <div class="f"><label for="selPage">Page</label><select id="selPage"><option value="p1">1. Border monitor</option><option value="p2">2. Line haul KPIs</option><option value="p3">3. Daily truck tracker</option></select></div>
+    <div class="f hide" id="fRT"><label for="selRT">Route type</label><select id="selRT"><option>All</option><option>Carting</option><option>FTL</option></select></div>
+    <div class="f hide" id="fDay"><label for="selDay">Trip day</label><select id="selDay"></select></div>
+    <div class="f"><label>Data period</label><div class="static" id="cut">1 Jan to 20 Oct 2026</div></div>
+  </div>
+</div></div>
+
+<div class="wrap">
+<!-- ============ PAGE 1 ============ -->
+<section class="page on" id="p1">
+  <div class="strip" id="k1"></div>
+  <div class="g">
+    <div class="p c7"><h2>Border throughput by reporting period</h2><div class="s">Average trucks cleared per day. Dashed line is the year average (1,781), dark is the peak period, yellow the lowest. Figures under the axis show change vs the prior period.</div><div id="ch_thru"></div></div>
+    <div class="p c5"><h2>Queue pressure control chart</h2><div class="s">Trucks still waiting at 20:00 as a share of trucks cleared that day. The 10% and 20% limits are my planning assumption.</div><div id="ch_ctrl"></div></div>
+  </div>
+  <div class="g">
+    <div class="p c4"><h2>Gate mix</h2><div class="s">Share of daily trucks by gate<span class="sw" style="background:var(--n9)"></span>Huu Nghi<span class="sw" style="background:var(--n6)"></span>Tan Thanh<span class="sw" style="background:var(--n4)"></span>Chi Ma<span class="sw" style="background:var(--n2)"></span>Coc Nam</div><div id="ch_gate"></div></div>
+    <div class="p c4"><h2>Direction of flow by gate</h2><div class="s">Trucks on 20 Oct 2026<span class="sw y"></span>Export<span class="sw" style="background:var(--n9)"></span>Import. Right column is the export share.</div><div id="ch_fly"></div></div>
+    <div class="p c4"><h2>What is waiting in the queue</h2><div class="s">Trucks at the gate at 20:00 by cargo. Darker cell means a larger share.</div><div id="ch_heat"></div></div>
+  </div>
+  <div class="g">
+    <div class="p c8"><h2>Daily control report</h2><div class="s">One line per bulletin day with a published queue count, as a planner would send it each morning.</div><table id="tb_daily"></table><div class="foot">Inland: trucks bringing goods from inland Vietnam up to the gate that day. n/p: not published in that bulletin.</div></div>
+    <div class="p c4 notes">
+      <h3>Overview</h3>
+      <p>Lang Son cleared <b>521,931 trucks</b> in the first 293 days of 2026, about <b>1,781 a day</b>; 7 in 10 carried imports. Road moves <b>75.8%</b> of Vietnam's freight tonnage (NSO, 10M 2026).</p>
+      <div id="ch_modes"></div>
+      <div class="rule"></div>
+      <h3>Findings</h3>
+      <p><b>Tet is the only real capacity break.</b> 773 trucks a day from 12 Feb to 1 Mar, against about 1,880 in a normal period.</p>
+      <p><b>The queue follows fruit, not volume.</b> Fruit is 40 to 86% of trucks left waiting; the worst day (1 Mar) was a low volume day.</p>
+      <p><b>Coc Nam is the only export led gate</b> (57% export).</p>
+      <div class="rule"></div>
+      <h3>Actions</h3>
+      <p>Move Tet volume into late January, when 2,004 trucks a day cleared. Send customers a delay update once queue pressure passes 20%. Pair export loads with import pickups to cut empty kilometres.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 2 ============ -->
+<section class="page" id="p2">
+  <div class="strip" id="k2"></div>
+  <div class="g">
+    <div class="p c6"><h2>How far trips run over plan</h2><div class="s">Trips grouped by actual time ÷ OSRM planned time. Dark bars are within the 1.5× tolerance, light bars are over it.</div><div id="ch_par"></div></div>
+    <div class="p c6"><h2>On plan rate by dispatch hour</h2><div class="s">Share of trips finishing within 1.5× plan, by trip creation hour. Dark is the best hour, yellow the worst.</div><div id="ch_hour"></div></div>
+  </div>
+  <div class="g">
+    <div class="p c4"><h2>Origin state vs average</h2><div class="s">Gap to the average on plan rate, in percentage points. Eight busiest origin states.</div><div id="ch_state"></div></div>
+    <div class="p c4"><h2>Delay grows with distance</h2><div class="s">Average hours above plan per trip. Right column is the on plan rate.</div><div id="ch_dist"></div></div>
+    <div class="p c4"><h2>Busiest corridors</h2><div class="s">Ranked by trips. Highlighted rows are on plan less than 10% of the time.</div><table id="tb_corr"></table></div>
+  </div>
+  <div class="p notes"><div class="cols">
+    <div><h3>Overview</h3><p>14,787 real Delhivery trips (12 Sep to 3 Oct 2018), rebuilt from 26,222 segments. A trip took <b>353 minutes against 181 planned</b> on average, so only <b>1 in 5</b> finished within 1.5× plan. A third of scan to scan time was spent at hubs.</p></div>
+    <div><h3>Findings</h3><p><b>Short hops are least reliable:</b> under 25 km only 12% are on plan.</p><p><b>Bhiwandi and Mumbai</b> (707 trips) are on plan 2 to 3% of the time; Maharashtra 5.6% vs Karnataka 35.3%.</p><p><b>Dispatch time matters:</b> 31% on plan at 20:00, 9% at 04:00.</p></div>
+    <div><h3>Actions</h3><p>Plan carting runs with a fixed handling allowance, not pure drive time. Start a root cause review at the Bhiwandi hub on dock slots and scan time. Move flexible departures from 02:00 to 07:00 into 19:00 to 22:00.</p><p class="muted">Text refers to all trips; the Route type filter updates the charts.</p></div>
+  </div></div>
+</section>
+
+<!-- ============ PAGE 3 ============ -->
+<section class="page" id="p3">
+  <div class="strip" id="k3"></div>
+  <div class="g">
+    <div class="p c7"><h2>Truck by truck: planned vs actual trip time</h2><div class="s">One line per FTL truck leaving Bangalore Nelamangala hub that day, in order of trip creation. Hollow dot is the OSRM plan, filled dot the actual time.<span class="sw" style="background:var(--n5)"></span>On plan<span class="sw" style="background:var(--watch)"></span>Delayed<span class="sw y"></span>Notify customer</div><div id="ch_db"></div></div>
+    <div class="p c5"><h2>Delay update draft</h2><div class="s">Click a truck in the loading plan to prepare the message for the customer or warehouse.</div><div class="draft" id="draft">Select a truck below.</div><button class="btn" id="copyBtn">Copy message</button> <span class="muted" id="copied" style="font-size:12px;margin-left:6px"></span></div>
+  </div>
+  <div class="p" style="margin-bottom:14px"><h2>Loading plan and daily report</h2><div class="s">Real trip data for the selected day. Truck plate, container and driver are filled in after confirming with the trucking supplier, so they are left open here rather than invented.</div><table id="tb_lp"></table>
+    <div class="foot">Status rule (my assumption): on plan up to 1.5× the OSRM time, delayed 1.5 to 2×, above 2× send the customer a delay update. Loop = truck returns to the origin hub after its stops.</div></div>
+</section>
+
+<div class="foot" id="srcs"></div>
+</div>
+<div id="tip"></div>
+
+<script>
+const D2={"All": {"n": 14787, "ratio": 1.96, "act": 353, "plan": 181, "ot": 0.2018, "dwell": 0.3331, "km": 223, "bands": [382, 832, 1770, 4907, 4408, 2488], "hour": [[0, 991, 0.1826], [1, 748, 0.2112], [2, 702, 0.1368], [3, 651, 0.1536], [4, 635, 0.0913], [5, 505, 0.1149], [6, 610, 0.123], [7, 472, 0.1356], [8, 345, 0.2493], [9, 317, 0.2681], [10, 262, 0.1527], [11, 267, 0.0974], [12, 270, 0.2148], [13, 328, 0.1555], [14, 379, 0.1609], [15, 469, 0.1962], [16, 526, 0.1977], [17, 595, 0.2403], [18, 696, 0.2342], [19, 837, 0.2533], [20, 1080, 0.3065], [21, 872, 0.2489], [22, 1123, 0.2378], [23, 1107, 0.2331]], "dist": [["<25 km", 2202, 0.1217, 0.59], ["25–50 km", 3697, 0.2021, 0.9], ["50–100 km", 2552, 0.2759, 1.44], ["100–250 km", 3299, 0.2128, 2.84], ["250–500 km", 1504, 0.2088, 4.73], [">500 km", 1533, 0.1624, 11.56]], "states": [["Maharashtra", 2714, 0.0556], ["Karnataka", 2143, 0.3532], ["Haryana", 1823, 0.2688], ["Tamil Nadu", 1039, 0.2753], ["Telangana", 784, 0.176], ["Uttar Pradesh", 760, 0.2579], ["Gujarat", 750, 0.16], ["Delhi", 725, 0.2455]], "corr": [["Bangalore → Bengaluru", 455, 0.3758, 1.67, 41, 73, 45], ["Bhiwandi → Mumbai", 437, 0.0343, 2.5, 29, 61, 24], ["Bengaluru → Bangalore", 328, 0.4329, 1.59, 49, 81, 53], ["Mumbai → Bhiwandi", 270, 0.0185, 2.73, 28, 68, 23], ["Gurgaon → Delhi", 241, 0.3402, 1.66, 61, 93, 60], ["Delhi → Gurgaon", 185, 0.3027, 1.84, 55, 94, 50], ["MAA → Chennai", 178, 0.2809, 1.81, 42, 74, 36], ["Pune → PNQ", 116, 0.1897, 2.27, 18, 42, 16]], "daily": [["2018-09-12", 747, 0.1593, 1.993, 0.3254, 213.1], ["2018-09-13", 750, 0.2013, 1.984, 0.3305, 211.5], ["2018-09-14", 712, 0.1924, 1.965, 0.3175, 214.0], ["2018-09-15", 783, 0.1928, 1.943, 0.3396, 213.3], ["2018-09-16", 616, 0.2419, 1.848, 0.3233, 261.9], ["2018-09-17", 722, 0.2188, 1.921, 0.3339, 217.4], ["2018-09-18", 791, 0.2238, 1.935, 0.3299, 209.2], ["2018-09-19", 674, 0.2136, 1.988, 0.3187, 226.2], ["2018-09-20", 703, 0.1935, 1.977, 0.3185, 236.3], ["2018-09-21", 740, 0.2108, 1.957, 0.3234, 235.7], ["2018-09-22", 740, 0.1973, 1.999, 0.3424, 215.3], ["2018-09-23", 631, 0.2171, 1.948, 0.3325, 237.1], ["2018-09-24", 658, 0.1869, 1.972, 0.3081, 234.0], ["2018-09-25", 695, 0.1784, 1.956, 0.3384, 233.4], ["2018-09-26", 683, 0.1991, 1.926, 0.3378, 237.3], ["2018-09-27", 650, 0.1954, 2.016, 0.3393, 208.8], ["2018-09-28", 605, 0.1752, 1.925, 0.3479, 213.4], ["2018-09-29", 605, 0.1901, 2.001, 0.3393, 209.9], ["2018-09-30", 506, 0.2075, 1.952, 0.3565, 219.4], ["2018-10-01", 600, 0.2083, 1.987, 0.3534, 224.2], ["2018-10-02", 549, 0.2168, 1.917, 0.3414, 218.7], ["2018-10-03", 627, 0.2281, 1.925, 0.3455, 214.6]]}, "Carting": {"n": 8906, "ratio": 2.32, "act": 124, "plan": 54, "ot": 0.2182, "dwell": 0.4949, "km": 58, "bands": [314, 615, 1014, 2236, 2768, 1959], "hour": [[0, 652, 0.1426], [1, 392, 0.1607], [2, 440, 0.0955], [3, 469, 0.1514], [4, 469, 0.1002], [5, 337, 0.1128], [6, 494, 0.1174], [7, 387, 0.1344], [8, 182, 0.2747], [9, 192, 0.3125], [10, 147, 0.1905], [11, 128, 0.0625], [12, 138, 0.1957], [13, 166, 0.1566], [14, 223, 0.157], [15, 312, 0.1987], [16, 339, 0.2065], [17, 332, 0.2711], [18, 430, 0.3163], [19, 408, 0.3431], [20, 608, 0.4408], [21, 424, 0.3962], [22, 564, 0.266], [23, 673, 0.2392]], "dist": [["<25 km", 2169, 0.1213, 0.59], ["25–50 km", 3503, 0.2004, 0.92], ["50–100 km", 1971, 0.31, 1.35], ["100–250 km", 1090, 0.2826, 2.54], ["250–500 km", 170, 0.3353, 3.37], [">500 km", 3, 0.6667, 3.99]], "states": [["Maharashtra", 1981, 0.0394], ["Karnataka", 1773, 0.3903], ["Haryana", 1030, 0.3718], ["Tamil Nadu", 753, 0.2417], ["Delhi", 612, 0.2729], ["West Bengal", 434, 0.0369], ["Uttar Pradesh", 403, 0.2457], ["Gujarat", 399, 0.0877]], "corr": [["Bangalore → Bengaluru", 447, 0.3736, 1.68, 41, 72, 44], ["Bhiwandi → Mumbai", 437, 0.0343, 2.5, 29, 61, 24], ["Bengaluru → Bangalore", 324, 0.4259, 1.6, 49, 81, 52], ["Mumbai → Bhiwandi", 270, 0.0185, 2.73, 28, 68, 23], ["Gurgaon → Delhi", 237, 0.346, 1.65, 60, 93, 60], ["Delhi → Gurgaon", 179, 0.2849, 1.85, 55, 94, 51], ["MAA → Chennai", 178, 0.2809, 1.81, 42, 74, 36], ["Pune → PNQ", 116, 0.1897, 2.27, 18, 42, 16]], "daily": [["2018-09-12", 454, 0.1828, 2.397, 0.4587, 58.6], ["2018-09-13", 445, 0.2494, 2.216, 0.5003, 62.0], ["2018-09-14", 426, 0.1784, 2.381, 0.4591, 61.9], ["2018-09-15", 484, 0.2128, 2.34, 0.4935, 54.0], ["2018-09-16", 330, 0.2818, 2.119, 0.4997, 57.6], ["2018-09-17", 427, 0.2342, 2.138, 0.4923, 60.4], ["2018-09-18", 476, 0.2332, 2.241, 0.4863, 58.1], ["2018-09-19", 395, 0.2278, 2.342, 0.5023, 58.0], ["2018-09-20", 400, 0.225, 2.166, 0.4854, 61.3], ["2018-09-21", 441, 0.2336, 2.284, 0.5011, 59.2], ["2018-09-22", 450, 0.2244, 2.404, 0.4911, 55.6], ["2018-09-23", 351, 0.2393, 2.186, 0.5306, 54.4], ["2018-09-24", 373, 0.1903, 2.488, 0.4583, 56.6], ["2018-09-25", 403, 0.201, 2.391, 0.4964, 58.9], ["2018-09-26", 388, 0.1985, 2.365, 0.5092, 59.7], ["2018-09-27", 427, 0.2014, 2.518, 0.4864, 58.0], ["2018-09-28", 395, 0.1924, 2.33, 0.5113, 56.6], ["2018-09-29", 401, 0.197, 2.576, 0.4896, 55.3], ["2018-09-30", 304, 0.2237, 2.283, 0.5105, 59.8], ["2018-10-01", 392, 0.2143, 2.444, 0.5269, 57.1], ["2018-10-02", 336, 0.2202, 2.213, 0.5071, 60.6], ["2018-10-03", 408, 0.25, 2.281, 0.5057, 58.1]]}, "FTL": {"n": 5881, "ratio": 1.88, "act": 699, "plan": 373, "ot": 0.177, "dwell": 0.2702, "km": 472, "bands": [68, 217, 756, 2671, 1640, 529], "hour": [[0, 339, 0.2596], [1, 356, 0.2669], [2, 262, 0.2061], [3, 182, 0.1593], [4, 166, 0.0663], [5, 168, 0.119], [6, 116, 0.1466], [7, 85, 0.1412], [8, 163, 0.2209], [9, 125, 0.2], [10, 115, 0.1043], [11, 139, 0.1295], [12, 132, 0.2348], [13, 162, 0.1543], [14, 156, 0.1667], [15, 157, 0.1911], [16, 187, 0.1818], [17, 263, 0.2015], [18, 266, 0.1015], [19, 429, 0.1678], [20, 472, 0.1335], [21, 448, 0.1094], [22, 559, 0.2093], [23, 434, 0.2235]], "dist": [["<25 km", 33, 0.1515, 0.35], ["25–50 km", 194, 0.232, 0.7], ["50–100 km", 581, 0.1601, 1.73], ["100–250 km", 2209, 0.1784, 2.99], ["250–500 km", 1334, 0.1927, 4.91], [">500 km", 1530, 0.1614, 11.58]], "states": [["Haryana", 793, 0.1349], ["Maharashtra", 733, 0.0996], ["Punjab", 444, 0.2545], ["Telangana", 396, 0.25], ["Karnataka", 370, 0.1757], ["Uttar Pradesh", 357, 0.2717], ["Gujarat", 351, 0.2422], ["Bihar", 332, 0.0211]], "corr": [["Pune → Bhiwandi", 66, 0.1515, 1.71, 133, 200, 115], ["Bhiwandi → Pune", 62, 0.0323, 1.85, 132, 209, 114], ["Gurgaon → Jaipur", 50, 0.34, 1.63, 247, 300, 193], ["Gurgaon → Bangalore", 47, 0.0426, 1.64, 2281, 2833, 1733], ["Gurgaon → Chandigarh", 41, 0.0, 2.13, 290, 456, 214], ["Chandigarh → Gurgaon", 33, 0.0303, 2.02, 293, 448, 218], ["Gurgaon → Kolkata", 32, 0.0, 1.91, 1521, 2094, 1076], ["Chandigarh → Ludhiana", 28, 0.5357, 1.41, 129, 124, 91]], "daily": [["2018-09-12", 293, 0.1229, 1.899, 0.2727, 452.4], ["2018-09-13", 305, 0.1311, 1.927, 0.2596, 429.6], ["2018-09-14", 286, 0.2133, 1.867, 0.259, 440.6], ["2018-09-15", 299, 0.1605, 1.856, 0.279, 471.1], ["2018-09-16", 286, 0.1958, 1.804, 0.2751, 497.7], ["2018-09-17", 295, 0.1966, 1.871, 0.2737, 444.7], ["2018-09-18", 315, 0.2095, 1.864, 0.2675, 437.4], ["2018-09-19", 279, 0.1935, 1.914, 0.2476, 464.4], ["2018-09-20", 303, 0.1518, 1.939, 0.264, 467.2], ["2018-09-21", 299, 0.1773, 1.89, 0.2575, 496.1], ["2018-09-22", 290, 0.1552, 1.91, 0.2849, 463.0], ["2018-09-23", 280, 0.1893, 1.906, 0.2713, 466.0], ["2018-09-24", 285, 0.1825, 1.876, 0.2575, 466.2], ["2018-09-25", 292, 0.1473, 1.87, 0.281, 474.4], ["2018-09-26", 295, 0.2, 1.843, 0.2762, 471.0], ["2018-09-27", 223, 0.1839, 1.887, 0.2673, 497.7], ["2018-09-28", 210, 0.1429, 1.827, 0.2733, 508.4], ["2018-09-29", 204, 0.1765, 1.86, 0.2661, 513.8], ["2018-09-30", 202, 0.1832, 1.877, 0.2959, 459.5], ["2018-10-01", 208, 0.1971, 1.884, 0.2757, 539.1], ["2018-10-02", 213, 0.2113, 1.848, 0.2728, 468.2], ["2018-10-03", 219, 0.1872, 1.837, 0.2733, 506.2]]}};
+const TR={"hub": "Bangalore Nelmngla H (Karnataka)", "days": {"2018-09-15": [["789222", "01:43", "Gurgaon Bilaspur HB", "Haryana", 1, 2223, 1728, 2802, 2969], ["364869", "02:28", "Vellore GndhiNgr IP", "Tamil Nadu", 3, 355, 316, 447, 782], ["560072", "02:38", "Bangalore Nelmngla H", "Karnataka", 2, 1340, 1083, 2005, 2414], ["971292", "10:23", "Kolkata Dankuni HB", "West Bengal", 1, 1956, 1405, 2743, 3553], ["424406", "13:59", "Gurgaon Bilaspur HB", "Haryana", 1, 2352, 1806, 2697, 3255], ["497817", "18:28", "Gurgaon Bilaspur HB", "Haryana", 1, 2412, 1875, 2953, 3086]], "2018-09-16": [["979791", "02:36", "Bangalore Nelmngla H", "Karnataka", 2, 1363, 1090, 1764, 2305], ["800240", "09:06", "Mangalore Kuntikna H", "Karnataka", 2, 366, 276, 671, 879], ["666611", "11:37", "Gurgaon Bilaspur HB", "Haryana", 1, 2323, 1805, 2738, 3284], ["653768", "11:39", "Aluva Peedika H", "Kerala", 2, 619, 573, 726, 972], ["889220", "14:49", "Mangalore Kuntikna H", "Karnataka", 2, 360, 265, 626, 778], ["666354", "16:44", "Vellore GndhiNgr IP", "Tamil Nadu", 2, 268, 261, 305, 415], ["250200", "23:25", "Coimbatore Karayam H", "Tamil Nadu", 2, 80, 79, 198, 354]], "2018-09-17": [["353821", "02:34", "Bangalore Nelmngla H", "Karnataka", 2, 1353, 1084, 1813, 2327], ["164074", "02:39", "Vellore GndhiNgr IP", "Tamil Nadu", 3, 365, 330, 427, 742], ["220752", "10:05", "Bengaluru Bomsndra HB", "Karnataka", 1, 52, 54, 86, 369], ["289073", "13:03", "Gurgaon Bilaspur HB", "Haryana", 1, 2321, 1801, 2601, 3162], ["244097", "18:53", "Aluva Peedika H", "Kerala", 2, 566, 509, 749, 1107], ["054363", "22:08", "Bhiwandi Mankoli HB", "Maharashtra", 1, 977, 755, 1236, 1480]], "2018-09-18": [["204501", "02:30", "Bangalore Nelmngla H", "Karnataka", 2, 1321, 1054, 1764, 2315], ["486722", "09:06", "Mangalore Kuntikna H", "Karnataka", 2, 378, 285, 582, 812], ["659477", "11:55", "Aluva Peedika H", "Kerala", 2, 622, 582, 663, 977], ["721848", "13:18", "Kolkata Dankuni HB", "West Bengal", 1, 1964, 1405, 3274, 3691], ["814392", "14:12", "Mangalore Kuntikna H", "Karnataka", 2, 366, 268, 570, 764], ["217670", "16:05", "Vellore GndhiNgr IP", "Tamil Nadu", 2, 256, 243, 349, 461], ["244781", "16:32", "Gurgaon Bilaspur HB", "Haryana", 1, 2318, 1808, 2699, 2945], ["626127", "17:47", "Bengaluru Bomsndra HB", "Karnataka", 1, 52, 52, 64, 387]], "2018-09-20": [["543575", "01:03", "Krishnagiri BnglorRd D", "Tamil Nadu", 4, 227, 217, 378, 439], ["980184", "08:52", "Hassan Pandrnga I", "Karnataka", 1, 178, 139, 362, 369], ["190035", "10:44", "Aluva Peedika H", "Kerala", 2, 608, 559, 835, 1177], ["626435", "15:22", "Gurgaon Bilaspur HB", "Haryana", 1, 2294, 1762, 2732, 2950], ["716346", "17:15", "Kolkata Dankuni HB", "West Bengal", 1, 1995, 1440, 3014, 3541], ["397423", "19:42", "Gurgaon Bilaspur HB", "Haryana", 1, 2376, 1856, 3024, 3188], ["433031", "20:24", "Aluva Peedika H", "Kerala", 2, 570, 512, 758, 1012], ["348003", "21:22", "Gurgaon Bilaspur HB", "Haryana", 1, 2265, 1755, 2719, 3230]], "2018-09-22": [["565439", "02:05", "Bangalore Nelmngla H", "Karnataka", 2, 1367, 1091, 1799, 2329], ["800288", "04:49", "Bhopal Trnsport H", "Madhya Pradesh", 1, 1395, 1032, 2625, 2911], ["135664", "08:49", "Mangalore Kuntikna H", "Karnataka", 2, 379, 282, 594, 836], ["094351", "10:36", "Aluva Peedika H", "Kerala", 2, 612, 569, 734, 1114], ["245090", "13:22", "Bangalore Nelmngla H", "Karnataka", 3, 718, 528, 1042, 1364], ["968363", "13:57", "Bangalore Nelmngla H", "Karnataka", 3, 492, 454, 668, 985], ["480786", "17:56", "Bengaluru Bomsndra HB", "Karnataka", 1, 52, 55, 74, 380], ["296135", "21:28", "Coimbatore Karayam H", "Tamil Nadu", 2, 84, 79, 179, 432]], "2018-09-23": [["927379", "00:47", "Bangalore Nelmngla H", "Karnataka", 2, 1403, 1139, 1755, 2405], ["306883", "10:48", "Gurgaon Bilaspur HB", "Haryana", 1, 2359, 1818, 2862, 3549], ["887571", "10:59", "Bengaluru Bomsndra HB", "Karnataka", 1, 52, 54, 175, 328], ["968120", "12:43", "Bengaluru Bomsndra HB", "Karnataka", 1, 53, 52, 90, 404], ["151871", "17:33", "Hubli Adargchi IP", "Karnataka", 1, 388, 284, 602, 1071], ["893136", "17:43", "Bhiwandi Mankoli HB", "Maharashtra", 1, 971, 745, 1297, 1559], ["492794", "20:26", "Aluva Peedika H", "Kerala", 1, 559, 497, 1025, 1197]], "2018-09-24": [["845506", "01:01", "Bangalore Nelmngla H", "Karnataka", 2, 1382, 1107, 1867, 2263], ["224386", "05:56", "Hyderabad Shamshbd H", "Telangana", 2, 572, 446, 646, 833], ["736913", "06:46", "Bhopal Trnsport H", "Madhya Pradesh", 1, 1489, 1070, 2076, 2244], ["651490", "09:35", "Mangalore Kuntikna H", "Karnataka", 2, 359, 262, 613, 762], ["398142", "10:23", "Aluva Peedika H", "Kerala", 2, 616, 570, 919, 1179], ["815713", "12:06", "Gurgaon Bilaspur HB", "Haryana", 1, 2320, 1800, 2650, 3200], ["800265", "19:25", "Aluva Peedika H", "Kerala", 2, 562, 504, 789, 1114], ["601858", "22:10", "Gurgaon Bilaspur HB", "Haryana", 1, 2305, 1777, 2777, 3184]], "2018-09-25": [["684464", "06:52", "Bhopal Trnsport H", "Madhya Pradesh", 1, 1520, 1099, 1965, 2151], ["393154", "10:38", "Aluva Peedika H", "Kerala", 2, 562, 530, 740, 1145], ["793119", "18:11", "Hyderabad Shamshbd H", "Telangana", 1, 575, 452, 856, 1099], ["892993", "19:24", "Bhiwandi Mankoli HB", "Maharashtra", 1, 972, 741, 1274, 1705], ["205134", "20:10", "Aluva Peedika H", "Kerala", 2, 560, 503, 1021, 1283], ["129695", "22:05", "Gurgaon Bilaspur HB", "Haryana", 1, 2347, 1806, 2929, 3221]], "2018-09-26": [["531686", "00:49", "Bangalore Nelmngla H", "Karnataka", 2, 1333, 1071, 1869, 2382], ["350867", "04:48", "Anantapur KamaStrt I", "Andhra Pradesh", 1, 221, 194, 295, 386], ["513974", "07:19", "Gurgaon Bilaspur HB", "Haryana", 1, 2389, 1859, 2849, 3171], ["185579", "09:22", "Mangalore Kuntikna H", "Karnataka", 2, 363, 268, 551, 777], ["246416", "10:23", "Bengaluru Bomsndra HB", "Karnataka", 1, 53, 55, 72, 389], ["204399", "12:56", "Vellore GndhiNgr IP", "Tamil Nadu", 2, 251, 243, 323, 463], ["528185", "13:16", "Gurgaon Bilaspur HB", "Haryana", 1, 2296, 1789, 2591, 3116], ["882441", "17:20", "Hyderabad Shamshbd H", "Telangana", 1, 563, 438, 666, 947], ["859426", "20:19", "Bengaluru Bomsndra HB", "Karnataka", 1, 55, 59, 77, 244]], "2018-09-28": [["379013", "02:01", "Bangalore Nelmngla H", "Karnataka", 2, 1370, 1093, 1760, 2193], ["220054", "05:02", "Bhiwandi Mankoli HB", "Maharashtra", 2, 1014, 740, 1816, 2107], ["578778", "05:15", "Anantapur KamaStrt I", "Andhra Pradesh", 1, 234, 215, 277, 388], ["479334", "11:10", "Bengaluru Bomsndra HB", "Karnataka", 1, 51, 51, 92, 345], ["659430", "12:55", "Gurgaon Bilaspur HB", "Haryana", 1, 2338, 1806, 2497, 3036], ["480626", "17:06", "Gurgaon Bilaspur HB", "Haryana", 1, 2330, 1788, 2729, 2968], ["168891", "18:11", "Hyderabad Shamshbd H", "Telangana", 1, 592, 465, 721, 951]]}};
+/* Lang Son data: Lang Son Department of Industry and Trade daily bulletins */
+const PER=[["1 Jan","11 Jan",11,1470],["12 Jan","19 Jan",8,1804],["20 Jan","26 Jan",7,1866],["27 Jan","11 Feb",16,2004],["12 Feb","1 Mar",18,773],["2 Mar","10 Mar",9,1638],["11 Mar","30 Mar",20,1757],["31 Mar","16 Apr",17,1878],["17 Apr","5 May",19,1921],["6 May","21 May",16,1898],["22 May","22 Jun",32,1883],["23 Jun","2 Jul",10,1873],["3 Jul","27 Jul",25,1888],["28 Jul","16 Aug",20,1808],["17 Aug","14 Sep",29,1903],["15 Sep","20 Oct",36,1835]];
+const CUM=[16170,30605,43664,75728,89636,104380,139514,171446,207954,238330,298598,317325,364516,400682,455865,521931];
+const IMSH=[57913/75728,(67813-57913)/(89636-75728),(130041-67813)/(171446-89636),(154577-130041)/(207954-171446),(175634-154577)/(238330-207954),(217860-175634)/(298598-238330),(231416-217860)/(317325-298598),(265130-231416)/(364516-317325),(291995-265130)/(400682-364516),(330780-291995)/(455865-400682),(379663-330780)/(521931-455865)];
+const SNAP=[["11 Jan",1649,364,1285,276,425],["11 Feb",2080,493,1587,217,418],["1 Mar",1139,302,837,282,null],["2 Mar",1491,315,1176,349,null],["5 May",1672,433,1239,207,407],["22 Jun",1603,null,null,157,null],["11 Aug",2011,516,1495,145,523],["14 Sep",1896,406,1490,146,357],["20 Oct",1839,460,1379,237,459]];
+const GATES=[["22 Jun",[894,450,176,83]],["10 Aug",[784,595,169,62]],["15 Sep",[889,663,228,66]],["20 Oct",[946,589,228,76]]];
+const FLY=[["Huu Nghi",218,728],["Tan Thanh",139,450],["Chi Ma",60,168],["Coc Nam",43,33]];
+const QMIX=[["11 Jan",110,164,2],["11 Feb",117,98,2],["2 Mar",301,null,null,349],["5 May",140,47,20],["11 Aug",69,64,12],["20 Oct",134,95,8]];
+const MODES=[["Road",2186.6],["Inland waterway",554.1],["Sea",137.7],["Rail and air",4.2]];
+
+const NS="http://www.w3.org/2000/svg";
+const f0=n=>n==null?"n/p":Math.round(n).toLocaleString("en-US");
+const pc=(x,d=1)=>(x*100).toFixed(d)+"%";
+const tip=document.getElementById("tip");
+function tipOn(e,t,rows){tip.innerHTML=`<div class="t">${t}</div>`+rows.map(r=>`<div class="r"><span>${r[0]}</span><b>${r[1]}</b></div>`).join("");tip.style.opacity=1;tip.style.left=Math.min(e.clientX+14,innerWidth-220)+"px";tip.style.top=(e.clientY+14)+"px"}
+function tipOff(){tip.style.opacity=0}
+function E(t,a={},p){const n=document.createElementNS(NS,t);for(const k in a)n.setAttribute(k,a[k]);p&&p.appendChild(n);return n}
+function T(p,x,y,s,c,anc="start",a={}){const t=E("text",{x,y,class:c,"text-anchor":anc,...a},p);t.textContent=s;return t}
+function S(id,w,h){const el=document.getElementById(id);el.innerHTML="";return E("svg",{viewBox:`0 0 ${w} ${h}`},el)}
+function H(p,a,t,rows){const r=E("rect",{...a,class:"hit"},p);r.addEventListener("mousemove",e=>tipOn(e,t,rows));r.addEventListener("mouseleave",tipOff)}
+function col(p,x,y,w,h,f){E("rect",{x,y,width:w,height:Math.max(0,h),fill:f},p)}
+function rb(p,x,y,w,h,f,dir=1){if(w<=0)return;E("rect",{x:dir>0?x:x-w,y,width:w,height:h,fill:f},p)}
+function grid(p,L,R,T0,B,max,step,fmt){for(let v=0;v<=max+1e-9;v+=step){const y=B-v/max*(B-T0);E("line",{x1:L,x2:R,y1:y,y2:y,stroke:v===0?"#9aa3b3":"var(--grid)"},p);T(p,L-7,y+3.5,fmt(v),"ax","end")}}
+function spark(vals){const W=200,H=26;const s=E("svg",{viewBox:`0 0 ${W} ${H}`,preserveAspectRatio:"none"});const mn=Math.min(...vals),mx=Math.max(...vals);const X=i=>i/(vals.length-1)*W,Y=v=>H-3-(v-mn)/(mx-mn||1)*(H-6);
+ E("polyline",{points:vals.map((v,i)=>`${X(i)},${Y(v)}`).join(" "),fill:"none",stroke:"var(--n6)","stroke-width":1.4,"vector-effect":"non-scaling-stroke"},s);
+ E("circle",{cx:X(vals.length-1),cy:Y(vals[vals.length-1]),r:2.4,fill:"var(--n9)"},s);return s}
+function strip(id,items){const h=document.getElementById(id);h.innerHTML="";items.forEach(o=>{const d=document.createElement("div");d.className="k";
+ d.innerHTML=`<div class="l">${o.l}</div><div class="v tab">${o.v}</div><div class="c">${o.b?`<b class="${o.bc||"nt"}">${o.b}</b> `:""}${o.c}</div>`;if(o.sp)d.appendChild(spark(o.sp));h.appendChild(d)})}
+
+/* ============ PAGE 1 ============ */
+strip("k1",[
+ {l:"Trucks per day, last period",v:"1,835",b:"▼ 3.6%",bc:"dn",c:"vs prior period",sp:PER.map(p=>p[3])},
+ {l:"Trucks cleared, year to date",v:"521,931",b:"293 days",c:"avg 1,781 a day",sp:CUM},
+ {l:"Import share",v:"72.7<small>%</small>",b:"74.0%",c:"in the last period",sp:IMSH},
+ {l:"Queue pressure, 20 Oct",v:"12.9<small>%</small>",b:"▲ 5.2 pp",bc:"dn",c:"vs 14 Sep · watch zone",sp:SNAP.map(d=>d[4]/d[1])},
+ {l:"Fruit share of the queue",v:"57<small>%</small>",b:"▲ 9 pp",bc:"dn",c:"vs 11 Aug · 93 durian trucks",sp:QMIX.map(d=>d[1]/(d[4]||d[1]+d[2]+d[3]))}]);
+
+(function(){const W=860,Hh=300,L=44,R=W-8,T0=24,B=Hh-56;const s=S("ch_thru",W,Hh);const max=2400;grid(s,L,R,T0,B,max,600,v=>v?(v/1000).toFixed(1)+"K":"0");
+ const n=PER.length,slot=(R-L)/n,bw=slot*.6,Y=v=>B-v/max*(B-T0);const vals=PER.map(p=>p[3]);const mx=vals.indexOf(Math.max(...vals)),mn=vals.indexOf(Math.min(...vals));
+ PER.forEach((p,i)=>{const x=L+slot*i+(slot-bw)/2;col(s,x,Y(p[3]),bw,B-Y(p[3]),i===mx?"var(--n9)":i===mn?"var(--y)":"var(--n4)");T(s,x+bw/2,Y(p[3])-6,f0(p[3]),"vl","middle");T(s,x+bw/2,B+15,p[1],"ax","middle");
+  if(i){const ch=(p[3]-PER[i-1][3])/PER[i-1][3];T(s,x+bw/2,B+29,(ch>=0?"+":"−")+Math.abs(Math.round(ch*100))+"%","an","middle",{fill:ch>=0?"var(--up)":"var(--dn)"})}
+  H(s,{x:L+slot*i,y:T0,width:slot,height:B-T0+32},`${p[0]} to ${p[1]} 2026`,[["Trucks per day",f0(p[3])],["Days",p[2]],["vs year average",(p[3]>=1781?"+":"")+pc(p[3]/1781-1)]])});
+ const ya=Y(1781);E("line",{x1:L,x2:R,y1:ya,y2:ya,stroke:"var(--n9)","stroke-dasharray":"4 3"},s);
+ T(s,L+slot*mn+slot/2,Y(773)-20,"Tet","an","middle");T(s,(L+R)/2,Hh-3,"Period ending, 2026","axs","middle")})();
+
+(function(){const W=600,Hh=300,L=38,R=W-66,T0=12,B=Hh-38;const s=S("ch_ctrl",W,Hh);const max=.3,Y=v=>B-v/max*(B-T0);
+ [[0,.1,"var(--gT)","Good","up to 10%"],[.1,.2,"var(--wT)","Watch","10 to 20%"],[.2,.3,"var(--yT)","Critical","above 20%"]].forEach(b=>{E("rect",{x:L,y:Y(b[1]),width:R-L,height:Y(b[0])-Y(b[1]),fill:b[2]},s);T(s,R+8,(Y(b[0])+Y(b[1]))/2-1,b[3],"axs");T(s,R+8,(Y(b[0])+Y(b[1]))/2+12,b[4],"ax")});
+ [0,.1,.2,.3].forEach(v=>{T(s,L-7,Y(v)+3.5,Math.round(v*100)+"%","ax","end");E("line",{x1:L,x2:R,y1:Y(v),y2:Y(v),stroke:v?"#fff":"#9aa3b3"},s)});
+ const n=SNAP.length,X=i=>L+18+i*(R-L-36)/(n-1),P=SNAP.map((d,i)=>[X(i),Y(d[4]/d[1])]);
+ E("polyline",{points:P.map(p=>p.join(",")).join(" "),fill:"none",stroke:"var(--n9)","stroke-width":1.8},s);
+ SNAP.forEach((d,i)=>{const r=d[4]/d[1];E("circle",{cx:P[i][0],cy:P[i][1],r:5,fill:r>.2?"var(--y)":r>.1?"var(--watch)":"var(--n5)",stroke:r>.2?"var(--n9)":"#fff","stroke-width":r>.2?1.1:2},s);
+  T(s,P[i][0],P[i][1]-10,Math.round(r*100)+"%","vlb","middle");T(s,P[i][0],B+15,d[0],"ax","middle");
+  H(s,{x:P[i][0]-24,y:T0,width:48,height:B-T0},d[0]+" 2026",[["Queue pressure",pc(r)],["Waiting at 20:00",f0(d[4])],["Cleared",f0(d[1])]])});
+ T(s,(L+R)/2,Hh-3,"Reported days, not evenly spaced","axs","middle")})();
+
+(function(){const W=460,Hh=280,L=30,R=W-6,T0=8,B=Hh-28;const s=S("ch_gate",W,Hh);const n=GATES.length,slot=(R-L)/n,bw=slot*.58;const C=["var(--n9)","var(--n6)","var(--n4)","var(--n2)"],N=["Huu Nghi","Tan Thanh","Chi Ma","Coc Nam"];
+ [0,.5,1].forEach(v=>{const y=B-v*(B-T0);E("line",{x1:L,x2:R,y1:y,y2:y,stroke:v?"var(--grid)":"#9aa3b3"},s);T(s,L-6,y+3.5,v*100+"%","ax","end")});
+ GATES.forEach(([d,v],i)=>{const tot=v.reduce((a,b)=>a+b);let y=B;const x=L+slot*i+(slot-bw)/2;v.forEach((g,j)=>{const h=g/tot*(B-T0);E("rect",{x,y:y-h+1,width:bw,height:Math.max(0,h-1),fill:C[j]},s);
+  if(h>16)T(s,x+bw/2,y-h/2+4,Math.round(g/tot*100)+"%",j<2?"vw":"vl","middle");H(s,{x,y:y-h,width:bw,height:h},`${d} · ${N[j]}`,[["Trucks",f0(g)],["Share",pc(g/tot)]]);y-=h});T(s,x+bw/2,B+15,d,"axs","middle")})})();
+
+(function(){const W=460,Hh=280,C=176,half=140,T0=12;const s=S("ch_fly",W,Hh);const max=800,rh=58,bh=20;T(s,C-50,T0,"Export","ax","end");T(s,C+50,T0,"Import","ax");T(s,W-4,T0,"Export share","ax","end");
+ FLY.forEach((d,i)=>{const y=T0+12+i*rh,we=d[1]/max*half,wi=d[2]/max*half;rb(s,C-48,y,we,bh,"var(--y)",-1);T(s,C-52-we,y+bh/2+4,f0(d[1]),"vl","end");rb(s,C+48,y,wi,bh,"var(--n9)");T(s,C+52+wi,y+bh/2+4,f0(d[2]),"vl");
+  T(s,C,y+bh/2+4,d[0],"axs","middle");const sh=d[1]/(d[1]+d[2]);T(s,W-4,y+bh/2+5,pc(sh,0),"vlb","end");H(s,{x:0,y:y-4,width:W,height:bh+8},d[0],[["Export",f0(d[1])],["Import",f0(d[2])],["Imports per export",(d[2]/d[1]).toFixed(1)]])});
+ T(s,C,Hh-6,"Coc Nam is the only gate where exports lead","an","middle")})();
+
+(function(){const W=460,Hh=280,L=56,T0=24;const s=S("ch_heat",W,Hh);const cols=["Fruit","Other goods","Not identified","Total"];const cw=(W-L)/4,ch=37;cols.forEach((c,j)=>T(s,L+cw*j+cw/2,T0-9,c,"axs","middle"));
+ const sh=v=>["#ebf3fc","#d9e8f9","#b6d6f5","#8cbff0","#62a7ea","#3561b0","#203e8c","#15296a"][Math.min(7,Math.floor(v*8.5))];
+ QMIX.forEach((d,i)=>{const y=T0+i*(ch+3),tot=d[4]||d[1]+d[2]+d[3];T(s,L-8,y+ch/2+4,d[0],"axs","end");
+  [d[1],d[2],d[3]].forEach((v,j)=>{const x=L+cw*j+1.5;if(v==null){E("rect",{x,y,width:cw-3,height:ch,fill:"#f6f8fb"},s);T(s,x+cw/2-1.5,y+ch/2+4,"not split","ax","middle");return}
+   const r=v/tot;E("rect",{x,y,width:cw-3,height:ch,fill:sh(r)},s);T(s,x+cw/2-1.5,y+ch/2+4,Math.round(r*100)+"%",r>.4?"vw":"vl","middle",r>.4?{}:{style:"stroke:none"});H(s,{x,y,width:cw-3,height:ch},`${d[0]} · ${cols[j]}`,[["Trucks",f0(v)],["Share",pc(r)]])});
+  const x=L+cw*3+1.5;E("rect",{x,y,width:cw-3,height:ch,fill:"#fff",stroke:"var(--line)"},s);T(s,x+cw/2-1.5,y+ch/2+4,f0(tot),"vlb","middle")})})();
+
+(function(){const t=document.getElementById("tb_daily");let h=`<tr><th class="l">Date, 2026</th><th>Cleared</th><th>Export</th><th>Import</th><th>Waiting 20:00</th><th>Queue pressure</th><th>Inland</th><th class="l">Status</th></tr>`;
+ SNAP.forEach(d=>{const r=d[4]/d[1],c=r>.2?"var(--y)":r>.1?"var(--watch)":"var(--n5)",lab=r>.2?"Critical":r>.1?"Watch":"Good";
+  h+=`<tr class="${r>.2?"flag":""}"><td class="l">${d[0]}</td><td><div class="cb"><i style="width:${d[1]/2100*80}px;background:var(--n3)"></i>${f0(d[1])}</div></td><td>${f0(d[2])}</td><td>${f0(d[3])}</td><td><b>${f0(d[4])}</b></td><td><div class="cb"><i style="width:${r/.3*80}px;background:${c};${r>.2?"box-shadow:inset 0 0 0 1px var(--n9)":""}"></i>${pc(r)}</div></td><td>${f0(d[5])}</td><td class="l"><span class="mk" style="background:${c};${r>.2?"box-shadow:inset 0 0 0 1px var(--n9)":""}"></span>${r>.2?"<b>"+lab+"</b>":lab}</td></tr>`});t.innerHTML=h})();
+
+(function(){const W=380,Hh=58;const s=S("ch_modes",W,Hh);const tot=MODES.reduce((a,b)=>a+b[1],0);let x=0;const C=["var(--n9)","var(--n5)","var(--n3)","var(--n2)"];
+ MODES.forEach((m,i)=>{const w=m[1]/tot*W;E("rect",{x:x+(i?1:0),y:4,width:Math.max(1,w-1),height:14,fill:C[i]},s);H(s,{x,y:4,width:Math.max(4,w),height:14},m[0],[["Million tonnes",m[1].toLocaleString("en-US")],["Share",pc(m[1]/tot)]]);x+=w});
+ T(s,0,36,"Road 75.8%","vlb");T(s,0,51,"2,186.6 Mt, +16.5% year on year","ax");T(s,W,36,"Waterway 19.2% · Sea 4.8%","ax","end");T(s,W,51,"Freight tonnage by mode, NSO","ax","end")})();
+
+/* ============ PAGE 2 ============ */
+let RT="All";
+function page2(){const d=D2[RT],A=D2.All,all=RT==="All";
+ const dd=(v,a,dec,u,goodUp)=>{if(all)return null;const x=v-a;return{b:(x>0?"▲ ":"▼ ")+Math.abs(x).toFixed(dec)+u,bc:(x>0)===goodUp?"up":"dn"}};
+ const o1=dd(d.ratio,A.ratio,2,"×",false),o2=dd(d.ot*100,A.ot*100,1," pp",true);
+ strip("k2",[{l:"Trips analysed",v:f0(d.n),b:all?"3 weeks":pc(d.n/A.n,0)+" of all",c:all?"8,906 carting · 5,881 FTL":RT+" trips",sp:d.daily.map(x=>x[1])},
+  {l:"Actual ÷ planned time",v:d.ratio.toFixed(2)+"<small>×</small>",b:o1?o1.b:"",bc:o1?o1.bc:"nt",c:`${d.act} min actual vs ${d.plan} planned`,sp:d.daily.map(x=>x[3])},
+  {l:"On plan rate (≤ 1.5× plan)",v:(d.ot*100).toFixed(1)+"<small>%</small>",b:o2?o2.b:"",bc:o2?o2.bc:"nt",c:all?"daily trend below":"vs all trips",sp:d.daily.map(x=>x[2])},
+  {l:"Time spent at hubs",v:Math.round(d.dwell*100)+"<small>%</small>",c:"of scan to scan time, outside driving",sp:d.daily.map(x=>x[4])},
+  {l:"Average route distance",v:f0(d.km)+"<small> km</small>",b:all?"":"all: "+f0(A.km)+" km",c:"OSRM route distance",sp:d.daily.map(x=>x[5])}]);
+ par(d);hour(d);state(d);dist(d);corr(d)}
+function par(d){const W=720,Hh=290,L=46,R=W-36,T0=26,B=Hh-42;const s=S("ch_par",W,Hh);const lab=["≤ 1.0×","1.0 to 1.25×","1.25 to 1.5×","1.5 to 2×","2 to 3×","> 3×"],v=d.bands;
+ const mx=Math.max(...v),step=mx>3000?1000:500,max=Math.ceil(mx*1.15/step)*step;grid(s,L,R,T0,B,max,step,x=>x>=1000?(x/1000)+"K":x);
+ const slot=(R-L)/6,bw=slot*.56,Y=x=>B-x/max*(B-T0);let cum=0;
+ v.forEach((c,i)=>{const x=L+slot*i+(slot-bw)/2;cum+=c;col(s,x,Y(c),bw,B-Y(c),i<3?"var(--n9)":"var(--n3)");T(s,x+bw/2,Y(c)-6,f0(c),"vl","middle");T(s,x+bw/2,B+15,lab[i],"ax","middle");H(s,{x:L+slot*i,y:T0,width:slot,height:B-T0},lab[i]+" of plan",[["Trips",f0(c)],["Share",pc(c/d.n)],["Cumulative",pc(cum/d.n)]])});
+ const xm=L+slot*3;E("line",{x1:xm,x2:xm,y1:T0-12,y2:B,stroke:"var(--ink3)","stroke-dasharray":"3 3"},s);T(s,xm-8,T0-14,"within tolerance "+pc(d.ot),"an","end");T(s,xm+8,T0-14,"over tolerance "+pc(1-d.ot),"an");
+ T(s,(L+R)/2,Hh-3,"Actual trip time ÷ OSRM planned time","axs","middle")}
+function hour(d){const W=720,Hh=290,L=40,R=W-8,T0=26,B=Hh-42;const s=S("ch_hour",W,Hh);const max=.5;grid(s,L,R,T0,B,max,.1,v=>Math.round(v*100)+"%");
+ const hs=d.hour,slot=(R-L)/24,bw=slot*.64,Y=v=>B-v/max*(B-T0);const best=hs.reduce((a,b)=>b[2]>a[2]?b:a),worst=hs.reduce((a,b)=>b[2]<a[2]?b:a);
+ hs.forEach(([h,c,o])=>{const x=L+slot*h+(slot-bw)/2;col(s,x,Y(o),bw,B-Y(o),h===best[0]?"var(--n9)":h===worst[0]?"var(--y)":"var(--n3)");if(h===best[0]||h===worst[0])T(s,x+bw/2,Y(o)-6,pc(o,0),"vlb","middle");if(h%3===0)T(s,x+bw/2,B+15,String(h).padStart(2,"0")+":00","ax","middle");
+  H(s,{x:L+slot*h,y:T0,width:slot,height:B-T0},String(h).padStart(2,"0")+":00",[["On plan",pc(o)],["Trips",f0(c)],["vs average",((o-d.ot)*100>=0?"+":"")+((o-d.ot)*100).toFixed(1)+" pp"]])});
+ const ya=Y(d.ot);E("line",{x1:L,x2:R,y1:ya,y2:ya,stroke:"var(--n9)","stroke-dasharray":"4 3"},s);T(s,L+4,T0-8,"Dashed line: average "+pc(d.ot),"an");
+ T(s,(L+R)/2,Hh-3,"Trip creation hour, as recorded","axs","middle")}
+function state(d){const W=460,Hh=288,C=250,half=150,T0=8;const s=S("ch_state",W,Hh);const rows=d.states.map(x=>[x[0],x[1],x[2],x[2]-d.ot]).sort((a,b)=>b[3]-a[3]);const mx=Math.max(...rows.map(r=>Math.abs(r[3])));const sc=v=>Math.abs(v)/mx*(half-44);const rh=(Hh-30)/rows.length,bh=Math.min(17,rh*.6);
+ E("line",{x1:C,x2:C,y1:T0-4,y2:T0+rows.length*rh,stroke:"#9aa3b3"},s);
+ rows.forEach((r,i)=>{const y=T0+i*rh,w=sc(r[3]);T(s,4,y+bh/2+4,r[0],"axs");if(r[3]>=0){rb(s,C,y,w,bh,"var(--n7)");T(s,C+w+5,y+bh/2+4,"+"+(r[3]*100).toFixed(1)+" pp","vl")}else{rb(s,C,y,w,bh,r[2]<.1?"var(--y)":"var(--watch)",-1);T(s,C-w-5,y+bh/2+4,"−"+Math.abs(r[3]*100).toFixed(1)+" pp","vl","end")}
+  H(s,{x:0,y:y-3,width:W,height:bh+6},r[0],[["On plan",pc(r[2])],["Average",pc(d.ot)],["Trips",f0(r[1])]])});T(s,C,Hh-5,"0 = average on plan rate, "+pc(d.ot),"ax","middle")}
+function dist(d){const W=460,Hh=288,L=80,R=W-64,T0=8;const s=S("ch_dist",W,Hh);const rows=d.dist,mx=Math.max(...rows.map(r=>r[3])),rh=(Hh-30)/rows.length,bh=Math.min(19,rh*.56);const C=["var(--n3)","var(--n4)","var(--n5)","var(--n6)","var(--n7)","var(--n9)"];
+ rows.forEach((r,i)=>{const y=T0+i*rh;T(s,L-8,y+bh/2+4,r[0],"axs","end");const w=r[3]/mx*(R-L-48);rb(s,L,y,Math.max(2,w),bh,C[i]);T(s,L+w+6,y+bh/2+4,r[3].toFixed(1)+" h","vl");T(s,W-2,y+bh/2+4,pc(r[2],0),"vlb","end");H(s,{x:0,y:y-3,width:W,height:bh+6},r[0],[["Hours over plan",r[3].toFixed(2)],["On plan",pc(r[2])],["Trips",f0(r[1])]])});
+ E("line",{x1:L,x2:L,y1:T0-4,y2:T0+(rows.length-1)*rh+bh+4,stroke:"#9aa3b3"},s);T(s,L,Hh-5,"Hours over plan per trip","ax");T(s,W-2,Hh-5,"On plan","ax","end")}
+function corr(d){const t=document.getElementById("tb_corr"),mx=Math.max(...d.corr.map(c=>c[2]),.5);let h=`<tr><th class="l">Corridor</th><th>Trips</th><th>On plan</th><th>× plan</th></tr>`;
+ d.corr.forEach((c,i)=>{const bad=c[2]<.1;h+=`<tr class="${bad?"flag":""}" title="Median ${c[5]} min actual vs ${c[6]} min plan, ${c[4]} km"><td class="l"><span class="rk">${i+1}</span>${c[0]}</td><td>${f0(c[1])}</td><td><div class="cb"><i style="width:${Math.max(2,c[2]/mx*56)}px;background:${bad?"var(--y)":"var(--n6)"};${bad?"box-shadow:inset 0 0 0 1px var(--n9)":""}"></i>${bad?"<b>"+pc(c[2],0)+"</b>":pc(c[2],0)}</div></td><td>${c[3].toFixed(2)}</td></tr>`});t.innerHTML=h}
+
+/* ============ PAGE 3 ============ */
+const days=Object.keys(TR.days);const selDay=document.getElementById("selDay");
+const fmtDay=k=>{const d=new Date(k+"T00:00:00");return d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"})};
+days.forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=fmtDay(k)+" · "+TR.days[k].length+" trucks";selDay.appendChild(o)});selDay.value="2018-09-26";
+let SEL=null;
+function stat(r){return r<=1.5?["On plan","var(--n5)"]:r<=2?["Delayed","var(--watch)"]:["Notify customer","var(--y)"]}
+const hrs=m=>(m/60).toFixed(1)+" h";
+function page3(){const rows=TR.days[selDay.value].map(t=>({id:t[0],tm:t[1],dst:t[2],st:t[3],seg:t[4],km:t[5],plan:t[6],act:t[7],scan:t[8],r:t[7]/t[6]}));
+ const on=rows.filter(r=>r.r<=1.5).length,del=rows.filter(r=>r.r>1.5&&r.r<=2).length,ntf=rows.filter(r=>r.r>2).length,over=rows.reduce((a,r)=>a+Math.max(0,r.act-r.plan),0);
+ strip("k3",[{l:"Trucks out (FTL)",v:rows.length,b:"FTL",c:"from Bangalore Nelamangala hub"},{l:"On plan (≤ 1.5×)",v:on,b:pc(on/rows.length,0),bc:"up",c:"of trucks that day"},
+  {l:"Delayed (1.5 to 2×)",v:del,b:"monitor",bc:"nt",c:"keep the warehouse informed"},{l:"Need a delay update (> 2×)",v:ntf,b:ntf?"action":"none",bc:ntf?"dn":"nt",c:"customer to be notified"},
+  {l:"Hours over plan, total",v:(over/60).toFixed(1)+"<small> h</small>",b:hrs(over/rows.length),bc:"nt",c:"average per truck"}]);
+ // dumbbell
+ const W=760,rh=30,Hh=rows.length*rh+52,L=210,R=W-70,T0=10;const s=S("ch_db",W,Hh);const mx=Math.max(...rows.map(r=>r.act))/60;const step=mx>30?10:mx>12?4:2,max=Math.ceil(mx/step)*step;const X=m=>L+(m/60)/max*(R-L);
+ for(let v=0;v<=max;v+=step){const x=L+v/max*(R-L);E("line",{x1:x,x2:x,y1:T0,y2:T0+rows.length*rh,stroke:v?"var(--grid)":"#9aa3b3"},s);T(s,x,T0+rows.length*rh+15,v+" h","ax","middle")}
+ rows.forEach((r,i)=>{const y=T0+i*rh+rh/2,[lab,c]=stat(r.r);const loop=r.dst==="Bangalore Nelmngla H";
+  T(s,0,y-2,r.tm+"  ·  "+(loop?"Loop via "+r.seg+" stops":r.dst),"axs");T(s,0,y+11,"Trip …"+r.id+" · "+f0(r.km)+" km","ax");
+  E("line",{x1:X(r.plan),x2:X(r.act),y1:y,y2:y,stroke:"#9aa3b3","stroke-width":2},s);E("circle",{cx:X(r.plan),cy:y,r:5,fill:"#fff",stroke:"var(--n9)","stroke-width":1.6},s);E("circle",{cx:X(r.act),cy:y,r:6,fill:c,stroke:r.r>2?"var(--n9)":"#fff","stroke-width":r.r>2?1.1:1.5},s);
+  T(s,X(r.act)+11,y+4,"+"+hrs(r.act-r.plan),"vl");
+  const hit=E("rect",{x:0,y:y-rh/2,width:W,height:rh,class:"hit",style:"cursor:pointer"},s);hit.addEventListener("mousemove",e=>tipOn(e,"Trip …"+r.id,[["Trip created",r.tm],["Planned",hrs(r.plan)],["Actual",hrs(r.act)],["× plan",r.r.toFixed(2)],["Status",lab]]));hit.addEventListener("mouseleave",tipOff);hit.addEventListener("click",()=>pick(r))});
+ T(s,(L+R)/2,Hh-6,"Hours of trip time","axs","middle");
+ // loading plan table
+ const t=document.getElementById("tb_lp");let h=`<tr><th class="l">Trip</th><th class="l">Trip created</th><th class="l">Destination</th><th>Stops</th><th>Route km</th><th>Plan</th><th>Actual</th><th>Over plan</th><th>× plan</th><th class="l">Truck / container / driver</th><th class="l">Status</th></tr>`;
+ rows.forEach((r,i)=>{const[lab,c]=stat(r.r);const loop=r.dst==="Bangalore Nelmngla H";h+=`<tr data-i="${i}" class="${r.r>2?"flag":""}" style="cursor:pointer"><td class="l">…${r.id}</td><td class="l">${r.tm}</td><td class="l">${loop?"Loop, back to hub":r.dst+", "+r.st}</td><td>${r.seg}</td><td>${f0(r.km)}</td><td>${hrs(r.plan)}</td><td>${hrs(r.act)}</td><td>+${hrs(r.act-r.plan)}</td><td>${r.r.toFixed(2)}</td><td class="l muted">to confirm with supplier</td><td class="l"><span class="mk" style="background:${c};${r.r>2?"box-shadow:inset 0 0 0 1px var(--n9)":""}"></span>${r.r>2?"<b>"+lab+"</b>":lab}</td></tr>`});
+ t.innerHTML=h;t.querySelectorAll("tr[data-i]").forEach(tr=>tr.onclick=()=>pick(rows[+tr.dataset.i]));
+ const first=rows.filter(r=>r.r>2).sort((a,b)=>b.r-a.r)[0]||rows[0];pick(first)}
+function pick(r){SEL=r;document.querySelectorAll("#tb_lp tr").forEach(tr=>tr.classList.toggle("sel",tr.dataset.i!==undefined&&TR.days[selDay.value][+tr.dataset.i][0]===r.id));
+ const loop=r.dst==="Bangalore Nelmngla H",[lab]=stat(r.r),day=fmtDay(selDay.value);
+ const txt=r.r>2?`Subject: Delay update, trip …${r.id} (${day})
+
+Dear customer,
+
+Your shipment on trip …${r.id}, created at Bangalore Nelamangala hub at ${r.tm}, is running behind plan. The planned transit time was ${hrs(r.plan)}; the truck needed ${hrs(r.act)} to reach ${loop?"its final stop":r.dst+" ("+r.st+")"}, ${hrs(r.act-r.plan)} more than planned.
+
+We are following the truck with the carrier and will confirm the new delivery slot with your warehouse team. Sorry for the inconvenience.
+
+Best regards,
+Road Logistics team`:r.r>1.5?`Internal note, trip …${r.id} (${day})
+
+Trip is ${r.r.toFixed(2)}× plan (${hrs(r.act)} vs ${hrs(r.plan)}). Status: ${lab}. Inform the receiving warehouse of the later arrival and keep tracking with the carrier. No customer message needed yet.`:`Trip …${r.id} (${day})
+
+On plan: ${hrs(r.act)} vs ${hrs(r.plan)} planned (${r.r.toFixed(2)}×). No update needed; record arrival in the daily report.`;
+ document.getElementById("draft").textContent=txt;document.getElementById("copied").textContent=""}
+document.getElementById("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(document.getElementById("draft").textContent);document.getElementById("copied").textContent="Copied"}catch(e){document.getElementById("copied").textContent="Copy is blocked here; select the text instead"}};
+
+/* ============ filters ============ */
+const selPage=document.getElementById("selPage"),selRT=document.getElementById("selRT");
+function show(p){selPage.value=p;document.querySelectorAll(".page").forEach(s=>s.classList.toggle("on",s.id===p));document.getElementById("fRT").classList.toggle("hide",p!=="p2");document.getElementById("fDay").classList.toggle("hide",p!=="p3");
+ document.getElementById("cut").textContent=p==="p1"?"1 Jan to 20 Oct 2026":"12 Sep to 3 Oct 2018";if(p==="p2")page2();if(p==="p3")page3();try{history.replaceState(null,"","#"+({p1:"border",p2:"linehaul",p3:"tracker"}[p]))}catch(e){}}
+selPage.onchange=()=>show(selPage.value);selRT.onchange=()=>{RT=selRT.value;page2()};selDay.onchange=page3;
+const hm={"#linehaul":"p2","#tracker":"p3"};if(hm[location.hash])show(hm[location.hash]);
+
+document.getElementById("srcs").innerHTML='Sources: Lang Son Department of Industry and Trade daily bulletins (<a href="https://soct.langson.gov.vn/tin-tuc-su-kien/xuat-nhap-khau/tinh-hinh-xuat-nhap-khau-hang-hoa-qua-cac-cua-khau-tinh-lang-son-ngay-11-02-2026.html" target="_blank" rel="noopener">soct.langson.gov.vn</a>, relayed by <a href="https://thuonghieucongluan.com.vn/lang-son-hon-1-800-xe-hang-xuat-nhap-khau-qua-cua-khau-trong-ngay-a338926.html" target="_blank" rel="noopener">Thuong hieu &amp; Cong luan</a>, <a href="https://vcci.com.vn/tin-tuc/lang-son-thuong-mai-bien-gioi-tiep-tuc-duy-tri-nhip-do-cao" target="_blank" rel="noopener">VCCI</a>, <a href="https://congthuong.vn/cap-nhat-tin-xuat-nhap-khau-qua-cac-cua-khau-lang-son-ngay-2-7-2026-463861.html" target="_blank" rel="noopener">Cong Thuong</a>, <a href="https://banqlktck.langson.gov.vn/thong-tin-tong-hop/tinh-hinh-xnk-tai-cua-khau/tinh-hinh-xuat-nhap-khau-hang-hoa-tai-cac-cua-khau-ngay-11-01-2026.html" target="_blank" rel="noopener">Border Economic Zone board</a>) · <a href="https://www.nso.gov.vn/bai-top/2026/11/bao-cao-tinh-hinh-kinh-te-xa-hoi-thang-muoi-va-10-thang-nam-2026/" target="_blank" rel="noopener">NSO 10M 2026</a>, <a href="https://doanhnghieptiepthi.vn/van-tai-hanh-khach-va-hang-hoa-cung-tang-truong-hai-con-so-trong-10-thang-161261107074223266.htm" target="_blank" rel="noopener">freight by mode</a> · Delhivery trip data (<a href="https://github.com/sayed-ashfaq/delhivery-dataanalysis" target="_blank" rel="noopener">GitHub</a>). Queue limits, the 1.5× tolerance and the 2× delay update rule are my assumptions.';
+</script>
+</body>
+</html>
