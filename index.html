@@ -21,7 +21,7 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--cream);color:var(--ink);font:15px/1.6 "Be Vietnam Pro",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit}
-.w{max-width:1200px;margin:0 auto;padding:0 32px}
+.w{max-width:1756px;margin:0 auto;padding:0 clamp(58px,calc(3.2vw + 38px),94px)}
 .disp{font-family:Anton,"Be Vietnam Pro",Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.005em;line-height:.92}
 .scr{font-family:"Mrs Saint Delafield",cursive;font-weight:400;text-transform:none;letter-spacing:0;line-height:1}
 .num{font-variant-numeric:tabular-nums lining-nums}
@@ -105,7 +105,7 @@ section{position:relative}
 .case{display:grid;grid-template-columns:1fr 1.15fr;gap:0;background:var(--paper);border-radius:22px;overflow:hidden;box-shadow:0 24px 50px rgba(20,35,79,.12);margin-bottom:34px}
 .case.flip{grid-template-columns:1.15fr 1fr}
 .case.flip .txt{order:2}
-.case .txt{padding:40px 40px 36px;display:flex;flex-direction:column}
+.case .txt{padding:clamp(40px,3vw,56px);display:flex;flex-direction:column;justify-content:center}
 .case .no{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
 .case h3{font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:44px;line-height:.98;margin:8px 0 6px;color:var(--navy)}
 .case .role{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
@@ -117,7 +117,7 @@ section{position:relative}
 .res div:first-child{border-left:0}
 .res b{display:block;font-family:Anton,sans-serif;font-weight:400;font-size:28px;line-height:1;color:var(--butter)}
 .res span{display:block;font-size:11.5px;line-height:1.3;margin-top:6px;color:#c9d0e6}
-.case .acts{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+.case .acts{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
 .case .acts .btn:not(.n){color:var(--navy)}
 .gal{padding:26px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:14px;align-content:center}
 .gal figure{margin:0;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 12px 26px rgba(0,0,0,.28);cursor:zoom-in;position:relative}
@@ -219,7 +219,7 @@ footer .w{display:flex;justify-content:space-between;gap:20px;padding-top:20px;p
   <div class="nav">
     <a class="me" href="#top">Ngô Việt Hà</a>
     <nav><a href="#work">Case studies</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav>
-    <a class="btn y" href="resume.pdf" download="Ngo_Viet_Ha_Resume.pdf">Resume</a>
+    <a class="btn y" href="RESUME_VIETHA.pdf" target="_blank" rel="noopener">Resume</a>
   </div>
   <div class="stage">
     <div class="bigword disp" id="bigword" aria-hidden="true">Portfolio</div>
@@ -348,8 +348,8 @@ footer .w{display:flex;justify-content:space-between;gap:20px;padding-top:20px;p
       <button class="pill" data-r="ff"><i>01</i>Freight forwarding<small>quotes, clients, shipments</small></button>
       <button class="pill" data-r="road"><i>02</i>Road and cross border trucking<small>Lang Son, truck tracking</small></button>
       <button class="pill" data-r="scp"><i>03</i>Supply chain planning<small>delivery plans, KPIs</small></button>
-      <button class="pill" data-r="trade"><i>04</i>Trade documentation<small>C/O, FSVP, Incoterms</small></button>
-      <button class="pill" data-r="data"><i>05</i>Data and dashboards<small>Python, Excel, Power BI</small></button>
+      <button class="pill" data-r="trade"><i>04</i>Trade documentation<small>Incoterms, customs, B/L</small></button>
+      <button class="pill" data-r="data"><i>05</i>Data and dashboards<small>Python, KPIs, daily reports</small></button>
     </div>
   </div>
 </section>
@@ -367,24 +367,24 @@ footer .w{display:flex;justify-content:space-between;gap:20px;padding-top:20px;p
         <div class="no">Case 01 · Independent project · Nov 2026</div>
         <h3>Road Freight Operations Report</h3>
         <div class="role">Solo · data, KPIs and dashboard</div>
-        <p class="q">Where do trucks lose time at the Vietnam to China border and on domestic line haul, and what should a planner do about it?</p>
+        <p class="q">Where do trucks lose time at the Lang Son border and on long haul trucking routes, and what should a planner do about it?</p>
         <ul>
-          <li>Collected <mark class="kw">Lang Son border bulletins</mark> for 2026 and NSO freight statistics; rebuilt <mark class="kw">14,787 real trips</mark> from 26,222 segments in <mark class="kw">Python</mark>.</li>
-          <li>Defined planner <mark class="kw">KPIs</mark>: <mark class="kw">customs queue pressure</mark>, <mark class="kw">on plan rate</mark> against the route plan, hours over plan.</li>
-          <li>Built a <mark class="kw">daily truck tracker</mark> with a <mark class="kw">loading plan</mark>, status rules and <mark class="kw">delay update</mark> drafts for customers.</li>
+          <li>Collected <mark class="kw">2026 Lang Son border gate bulletins</mark> and NSO freight statistics. Vietnam publishes no trip level data, so I rebuilt <mark class="kw">14,787 real Delhivery trips in India</mark> from 26,222 segments in <mark class="kw">Python</mark>.</li>
+          <li>Defined planner <mark class="kw">KPIs</mark>: <mark class="kw">customs queue pressure</mark> with 10% and 20% limits at the border, plus <mark class="kw">on plan rate</mark> against the route plan and hours over plan for the trips.</li>
+          <li>Built a <mark class="kw">daily control report</mark> for the border and a <mark class="kw">daily truck tracker</mark> comparing planned and actual time per truck, with status rules that flag which customers need a <mark class="kw">delay update</mark>, plus a <mark class="kw">loading plan</mark> table.</li>
         </ul>
         <div class="res">
           <div><b class="num">521,931</b><span>border trucks analysed</span></div>
           <div><b class="num">−59%</b><span>capacity over Tet</span></div>
           <div><b class="num">86%</b><span>of the queue was fruit on the worst day</span></div>
-          <div><b class="num">1 in 5</b><span>trips on plan</span></div>
+          <div><b class="num">1 in 5</b><span>trips on plan (India data)</span></div>
         </div>
         <div class="acts"><a class="btn n" href="dashboard.html">Open live dashboard</a><a class="btn" href="dashboard.html#tracker">Truck tracker</a></div>
       </div>
       <div class="gal wash">
         <figure><img src="img/dash-border.webp" alt="Border monitor page" width="1400" height="875"><figcaption>Border monitor</figcaption></figure>
-        <figure><img src="img/dash-linehaul.webp" alt="Line haul KPIs page" width="1400" height="875"><figcaption>Line haul KPIs</figcaption></figure>
-        <figure><img src="img/dash-tracker.webp" alt="Daily truck tracker page" width="1400" height="875"><figcaption>Truck tracker</figcaption></figure>
+        <figure><img src="img/dash-linehaul.webp" alt="Line haul KPIs page, India trip data" width="1400" height="875"><figcaption>Line haul KPIs (India)</figcaption></figure>
+        <figure><img src="img/dash-tracker.webp" alt="Daily truck tracker page, India trip data" width="1400" height="875"><figcaption>Truck tracker (India)</figcaption></figure>
       </div>
     </article>
 
@@ -457,7 +457,7 @@ footer .w{display:flex;justify-content:space-between;gap:20px;padding-top:20px;p
           <h3>TIXIMAX</h3>
           <div class="role">Business Intern, Logistics and Freight Forwarding</div>
           <ul>
-            <li>Coordinated <mark class="kw">2 cross border road import orders</mark> of fashion goods from <mark class="kw">China to Lang Son</mark>, giving the client <mark class="kw">shipment status updates</mark>.</li>
+            <li>Coordinated <mark class="kw">2 cross border road import orders</mark> of fashion goods from <mark class="kw">China to Lang Son</mark>, giving the client <mark class="kw">shipment status updates</mark>; the client reported <mark class="kw">100% satisfaction</mark>.</li>
             <li>Processed <mark class="kw">20+ freight quotations</mark> and service requests <mark class="kw">end to end</mark>, coordinating handovers and tracking each request to completion.</li>
             <li>Followed up <mark class="kw">30+ prospective clients</mark> in <mark class="kw">English and Vietnamese</mark>, identified <mark class="kw">freight requirements</mark> and gave shipment and service status updates.</li>
             <li>Maintained client, quotation and <mark class="kw">shipment records</mark> in the <mark class="kw">CRM</mark>.</li>
@@ -471,8 +471,8 @@ footer .w{display:flex;justify-content:space-between;gap:20px;padding-top:20px;p
           <h3>Embassy of Vietnam in Indonesia</h3>
           <div class="role">Intern</div>
           <ul>
-            <li>Produced <mark class="kw">14 documented outputs in 195 hours</mark>: <mark class="kw">9 weekly briefings</mark> on ASEAN and Vietnam markets, 2 research articles, 2 diplomatic documents and 1 video.</li>
-            <li>Researched <mark class="kw">Indonesia’s logistics sector</mark> and the barriers to <mark class="kw">Vietnam and Indonesia logistics cooperation</mark>.</li>
+            <li>Produced <mark class="kw">14 documented outputs in 195 hours</mark>: <mark class="kw">9 weekly briefings</mark> on ASEAN and Vietnam markets for the Ministry of Foreign Affairs, keeping the <mark class="kw">Vietnamese community in Indonesia</mark> updated on economic news, plus 2 research articles, 2 diplomatic documents and 1 video.</li>
+            <li>Researched <mark class="kw">Indonesia’s logistics sector</mark> and the barriers to Vietnam and Indonesia logistics cooperation for <mark class="kw">BRIN</mark>, Indonesia’s National Research and Innovation Agency, to help identify <mark class="kw">cooperation opportunities</mark>.</li>
             <li>Processed <mark class="kw">trade and diplomacy documents</mark> twice a week, revised with supervisor feedback.</li>
           </ul>
         </div>
@@ -497,11 +497,11 @@ footer .w{display:flex;justify-content:space-between;gap:20px;padding-top:20px;p
       <div class="rv">
         <table class="sk">
           <tr><th>Skill</th><th>Tools</th><th>Where it shows</th></tr>
-          <tr data-tags="ff road scp data"><td>Operations reporting</td><td>Excel, Power Query, Power BI</td><td>Daily control report and loading plan, Case 01</td></tr>
-          <tr data-tags="data road"><td>Data cleaning and analysis</td><td>Python (pandas), SQL basics</td><td>14,787 trips rebuilt and checked, Case 01</td></tr>
-          <tr data-tags="ff trade road"><td>Freight and trade documents</td><td>Incoterms, customs, B/L, FDA and FSVP rules</td><td>TIXIMAX orders and quotes; U.S. import rules in Economist Up</td></tr>
+          <tr data-tags="ff road scp data"><td>Operations reporting</td><td>Daily report, KPI limits, status rules</td><td>Daily control report and loading plan, Case 01</td></tr>
+          <tr data-tags="data road"><td>Data cleaning and analysis</td><td>Python (pandas)</td><td>14,787 Delhivery trips rebuilt and checked, Case 01</td></tr>
+          <tr data-tags="ff trade road"><td>Freight and trade documents</td><td>Incoterms, customs declaration, B/L</td><td>TIXIMAX orders and quotes; VietLog Import Export Practices course</td></tr>
           <tr data-tags="scp road"><td>Delivery planning</td><td>Stock sourcing, delivery schedules, fallbacks, on time in full</td><td>ROCKWOOL delivery model, Case 02</td></tr>
-          <tr data-tags="ff road"><td>Client and carrier communication</td><td>CRM, Outlook, English, Chinese</td><td>30+ clients at TIXIMAX; delay update drafts</td></tr>
+          <tr data-tags="ff road"><td>Client and carrier communication</td><td>CRM, Outlook, English, Chinese</td><td>30+ clients at TIXIMAX; shipment status updates</td></tr>
         </table>
       </div>
     </div>
@@ -520,7 +520,7 @@ footer .w{display:flex;justify-content:space-between;gap:20px;padding-top:20px;p
         <a class="chip" href="tel:+84888351608">+84 888 351 608</a>
         <span class="chip">Hanoi, Vietnam</span>
       </div>
-      <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn n" href="resume.pdf" download="Ngo_Viet_Ha_Resume.pdf">Download resume</a><a class="btn" href="mailto:ngovietha200603@gmail.com" style="color:var(--navy)">Write an email</a></div>
+      <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn n" href="RESUME_VIETHA.pdf" target="_blank" rel="noopener">View resume</a><a class="btn" href="mailto:ngovietha200603@gmail.com" style="color:var(--navy)">Write an email</a></div>
     </div>
   </div>
 </section>
