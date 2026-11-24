@@ -6,18 +6,18 @@
 <title>Road Freight Operations Report | Lang Son Border and Line Haul</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#eceff4; --panel:#ffffff; --line:#d9dee7; --grid:#e8ebf1;
   --ink:#141b2d; --ink2:#525b6e; --ink3:#8b93a3;
-  --n9:#0c1b48; --n8:#15296a; --n7:#203e8c; --n6:#3561b0; --n5:#62a7ea; --n4:#8cbff0; --n3:#b6d6f5; --n2:#d9e8f9; --n1:#ebf3fc;
+  --n9:#0b3a75; --n8:#11498f; --n7:#1d5fae; --n6:#2f78c8; --n5:#5d9be0; --n4:#8ebdee; --n3:#b9d6f5; --n2:#dbeafb; --n1:#eef5fd;
   --y:#f2ea1e; --yT:#fbf7c9; --watch:#9aa6bd; --wT:#eceff4; --gT:#e6f0fb;
   --dn:#8f7600; --up:#3561b0;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font:13px/1.45 "Be Vietnam Pro",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font:13px/1.45 "Segoe UI","Open Sans",Arial,sans-serif;-webkit-font-smoothing:antialiased}
 .tab{font-variant-numeric:tabular-nums lining-nums}
 
 /* top bar */
@@ -28,9 +28,9 @@ body{background:var(--bg);color:var(--ink);font:13px/1.45 "Be Vietnam Pro",Arial
 .filters{margin-left:auto;display:flex;gap:12px;align-items:flex-end}
 .f{display:flex;flex-direction:column;gap:3px}
 .f label{font-size:11px;color:#b9c6e4;font-weight:600}
-.f select{appearance:none;-webkit-appearance:none;font:600 13px "Be Vietnam Pro",Arial,sans-serif;color:var(--ink);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%230c1b48' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 10px center;border:0;border-radius:2px;padding:7px 30px 7px 10px;min-width:150px;cursor:pointer}
+.f select{appearance:none;-webkit-appearance:none;font:600 13px "Segoe UI","Open Sans",Arial,sans-serif;color:var(--ink);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%230c1b48' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 10px center;border:0;border-radius:2px;padding:7px 30px 7px 10px;min-width:150px;cursor:pointer}
 .f select:focus{outline:2px solid var(--y);outline-offset:1px}
-.f .static{font:600 13px "Be Vietnam Pro";color:#fff;padding:7px 0}
+.f .static{font:600 13px "Segoe UI","Open Sans";color:#fff;padding:7px 0}
 .f.hide{display:none}
 
 .wrap{max-width:1560px;margin:0 auto;padding:18px 26px 30px}
@@ -59,7 +59,7 @@ body{background:var(--bg);color:var(--ink);font:13px/1.45 "Be Vietnam Pro",Arial
 .sw.y{background:var(--y);box-shadow:inset 0 0 0 1px var(--n9)}
 
 svg{display:block;width:100%;height:auto;overflow:visible}
-svg text{font-family:"Be Vietnam Pro",Arial,sans-serif;font-variant-numeric:tabular-nums}
+svg text{font-family:"Segoe UI","Open Sans",Arial,sans-serif;font-variant-numeric:tabular-nums}
 svg path[fill="var(--y)"],svg rect[fill="var(--y)"],svg circle[fill="var(--y)"]{stroke:var(--n9);stroke-width:1.1}
 .ax{fill:var(--ink3);font-size:10.5px}
 .axs{fill:var(--ink2);font-size:10.5px;font-weight:600}
@@ -91,7 +91,7 @@ tr.sel td{background:var(--n1)!important}
 .foot a{color:var(--ink2)}
 
 .draft{border:1px solid var(--line);background:#fbfcfe;padding:12px 14px;font-size:12.5px;white-space:pre-wrap;line-height:1.55;color:var(--ink)}
-.btn{font:600 12px "Be Vietnam Pro";border:1px solid var(--n9);background:var(--n9);color:#fff;padding:6px 12px;border-radius:2px;cursor:pointer;margin-top:8px}
+.btn{font:600 12px "Segoe UI","Open Sans";border:1px solid var(--n9);background:var(--n9);color:#fff;padding:6px 12px;border-radius:2px;cursor:pointer;margin-top:8px}
 .btn.ghost{background:#fff;color:var(--n9)}
 
 #tip{position:fixed;z-index:20;pointer-events:none;opacity:0;background:#fff;border:1px solid var(--line);box-shadow:0 4px 14px rgba(12,27,72,.12);font-size:12px;padding:8px 10px;min-width:170px}
@@ -99,17 +99,57 @@ tr.sel td{background:var(--n1)!important}
 #tip .r{display:flex;justify-content:space-between;gap:16px;color:var(--ink2);padding:1px 0}
 #tip .r b{color:var(--ink);font-variant-numeric:tabular-nums}
 @media(max-width:1180px){.strip{grid-template-columns:repeat(2,1fr)}.c3,.c4,.c5,.c6,.c7,.c8,.c9{grid-column:span 12}.notes .cols{grid-template-columns:1fr}.bar .in{flex-wrap:wrap}.filters{margin-left:0;flex-wrap:wrap}}
+
+/* ===== designer restyle: Power BI report look ===== */
+body{background:#eaf1fa;font-family:"Segoe UI","Open Sans",Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+ radial-gradient(1200px 520px at 108% 112%,rgba(47,120,200,.22),transparent 60%),
+ radial-gradient(900px 420px at 102% 96%,rgba(93,155,224,.18),transparent 62%),
+ linear-gradient(180deg,#f4f8fd,#e8f0fa)}
+.bar{background:transparent;border-bottom:0;color:var(--ink)}
+.bar .in{max-width:1680px;padding:18px 28px 6px;align-items:center}
+.bar h1{font-size:30px;font-weight:400;letter-spacing:-.01em}
+.bar h1 b{font-weight:700;color:var(--n7)}
+.bar h1 i{font-style:normal;font-family:"Segoe UI Light","Segoe UI","Open Sans",Arial,sans-serif;font-weight:300;color:#7f9bbd}
+.bar .sub{color:var(--ink2);font-size:12px;max-width:640px}
+.f .static{white-space:nowrap}
+.f label{color:var(--ink2);font-size:11px;font-weight:600}
+.f select{background-color:#fff;border:1px solid #cfdcec;border-radius:6px;box-shadow:0 1px 2px rgba(11,58,117,.06)}
+.f select:focus{outline:2px solid var(--n5)}
+.f .static{color:var(--ink);font-weight:600}
+.bar .filters a.static{color:var(--n7)!important}
+.wrap{max-width:1680px;padding:12px 28px 30px}
+.lay{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:16px;align-items:start}
+.strip{display:flex;flex-direction:column;gap:12px;background:transparent;border:0;margin:0;position:sticky;top:12px}
+.k{background:rgba(255,255,255,.72);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.9);border-left:0;border-radius:14px;padding:14px 16px 0;box-shadow:0 2px 10px rgba(11,58,117,.07);overflow:hidden;text-align:center}
+.k:first-child{border-left:0}
+.k .v{order:-1;font-size:30px;font-weight:600;color:var(--n9);margin:2px 0 2px}
+.k .l{font-size:13px;font-weight:400;color:var(--ink2)}
+.k .c{font-size:11.5px;margin-top:4px;white-space:normal}
+.k svg{height:46px;margin:8px -16px 0;width:calc(100% + 32px)}
+.k{display:flex;flex-direction:column}
+.p{background:#fff;border:0;border-radius:14px;box-shadow:0 2px 10px rgba(11,58,117,.07);padding:16px 18px 14px}
+.p h2{padding-top:0;font-size:15px;font-weight:700;color:var(--n9)}
+.p h2::before{display:none}
+.p .s{color:#6b7a90}
+.g{gap:16px;margin-bottom:16px}
+th{border-bottom:2px solid var(--n7);color:var(--n9)}
+tr.flag td{background:#fff8d6}
+.notes h3{color:var(--n7)}
+#tip{border-radius:8px;border:0;box-shadow:0 6px 20px rgba(11,58,117,.18)}
+.pill text{font-family:"Segoe UI","Open Sans",Arial,sans-serif}
+@media(max-width:1180px){.lay{grid-template-columns:1fr}.strip{position:static;display:grid;grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
 <div class="bar"><div class="in">
   <div>
-    <h1>Road Freight Operations Report</h1>
-    <div class="sub">Lang Son cross border trucking, line haul delay control and a daily truck tracker · portfolio for the Kuehne+Nagel Road Logistics Intern role · prepared by Ha</div>
+    <h1><b>Road Freight</b> <i>Operations Report</i></h1>
+    <div class="sub">Lang Son cross border trucking (Vietnam), plus line haul delay control and a daily truck tracker on Delhivery trip data (India) · prepared by Ngô Việt Hà</div>
   </div>
   <div class="filters">
-    <div class="f"><label>&nbsp;</label><a class="static" href="./" style="color:#f2ea1e;text-decoration:none">‹ Back to portfolio</a></div>
-    <div class="f"><label for="selPage">Page</label><select id="selPage"><option value="p1">1. Border monitor</option><option value="p2">2. Line haul KPIs</option><option value="p3">3. Daily truck tracker</option></select></div>
+    <div class="f"><label>&nbsp;</label><a class="static" href="./" style="text-decoration:none">‹ Back to portfolio</a></div>
+    <div class="f"><label for="selPage">Page</label><select id="selPage"><option value="p1">1. Lang Son border monitor</option><option value="p2">2. Line haul KPIs (India)</option><option value="p3">3. Daily truck tracker (India)</option></select></div>
     <div class="f hide" id="fRT"><label for="selRT">Route type</label><select id="selRT"><option>All</option><option>Carting</option><option>FTL</option></select></div>
     <div class="f hide" id="fDay"><label for="selDay">Trip day</label><select id="selDay"></select></div>
     <div class="f"><label>Data period</label><div class="static" id="cut">1 Jan to 20 Oct 2026</div></div>
@@ -119,7 +159,7 @@ tr.sel td{background:var(--n1)!important}
 <div class="wrap">
 <!-- ============ PAGE 1 ============ -->
 <section class="page on" id="p1">
-  <div class="strip" id="k1"></div>
+<div class="lay"><div class="mainc">
   <div class="g">
     <div class="p c7"><h2>Border throughput by reporting period</h2><div class="s">Average trucks cleared per day. Dashed line is the year average (1,781), dark is the peak period, yellow the lowest. Figures under the axis show change vs the prior period.</div><div id="ch_thru"></div></div>
     <div class="p c5"><h2>Queue pressure control chart</h2><div class="s">Trucks still waiting at 20:00 as a share of trucks cleared that day. The 10% and 20% limits are my planning assumption.</div><div id="ch_ctrl"></div></div>
@@ -145,11 +185,13 @@ tr.sel td{background:var(--n1)!important}
       <p>Move Tet volume into late January, when 2,004 trucks a day cleared. Send customers a delay update once queue pressure passes 20%. Pair export loads with import pickups to cut empty kilometres.</p>
     </div>
   </div>
+</div>
+<aside class="strip" id="k1"></aside></div>
 </section>
 
 <!-- ============ PAGE 2 ============ -->
 <section class="page" id="p2">
-  <div class="strip" id="k2"></div>
+<div class="lay"><div class="mainc">
   <div class="g">
     <div class="p c6"><h2>How far trips run over plan</h2><div class="s">Trips grouped by actual time ÷ OSRM planned time. Dark bars are within the 1.5× tolerance, light bars are over it.</div><div id="ch_par"></div></div>
     <div class="p c6"><h2>On plan rate by dispatch hour</h2><div class="s">Share of trips finishing within 1.5× plan, by trip creation hour. Dark is the best hour, yellow the worst.</div><div id="ch_hour"></div></div>
@@ -164,17 +206,20 @@ tr.sel td{background:var(--n1)!important}
     <div><h3>Findings</h3><p><b>Short hops are least reliable:</b> under 25 km only 12% are on plan.</p><p><b>Bhiwandi and Mumbai</b> (707 trips) are on plan 2 to 3% of the time; Maharashtra 5.6% vs Karnataka 35.3%.</p><p><b>Dispatch time matters:</b> 31% on plan at 20:00, 9% at 04:00.</p></div>
     <div><h3>Actions</h3><p>Plan carting runs with a fixed handling allowance, not pure drive time. Start a root cause review at the Bhiwandi hub on dock slots and scan time. Move flexible departures from 02:00 to 07:00 into 19:00 to 22:00.</p><p class="muted">Text refers to all trips; the Route type filter updates the charts.</p></div>
   </div></div>
+</div>
+<aside class="strip" id="k2"></aside></div>
 </section>
 
 <!-- ============ PAGE 3 ============ -->
 <section class="page" id="p3">
-  <div class="strip" id="k3"></div>
+<div class="lay"><div class="mainc">
   <div class="g">
-    <div class="p c7"><h2>Truck by truck: planned vs actual trip time</h2><div class="s">One line per FTL truck leaving Bangalore Nelamangala hub that day, in order of trip creation. Hollow dot is the OSRM plan, filled dot the actual time.<span class="sw" style="background:var(--n5)"></span>On plan<span class="sw" style="background:var(--watch)"></span>Delayed<span class="sw y"></span>Notify customer</div><div id="ch_db"></div></div>
-    <div class="p c5"><h2>Delay update draft</h2><div class="s">Click a truck in the loading plan to prepare the message for the customer or warehouse.</div><div class="draft" id="draft">Select a truck below.</div><button class="btn" id="copyBtn">Copy message</button> <span class="muted" id="copied" style="font-size:12px;margin-left:6px"></span></div>
+    <div class="p c12"><h2>Truck by truck: planned vs actual trip time</h2><div class="s">One line per FTL truck leaving Bangalore Nelamangala hub that day, in order of trip creation. Click a truck to find it in the table below. Hollow dot is the OSRM plan, filled dot the actual time.<span class="sw" style="background:var(--n5)"></span>On plan<span class="sw" style="background:var(--watch)"></span>Delayed<span class="sw y"></span>Notify customer (&gt; 2× plan)</div><div id="ch_db"></div></div>
   </div>
   <div class="p" style="margin-bottom:14px"><h2>Loading plan and daily report</h2><div class="s">Real trip data for the selected day. Truck plate, container and driver are filled in after confirming with the trucking supplier, so they are left open here rather than invented.</div><table id="tb_lp"></table>
     <div class="foot">Status rule (my assumption): on plan up to 1.5× the OSRM time, delayed 1.5 to 2×, above 2× send the customer a delay update. Loop = truck returns to the origin hub after its stops.</div></div>
+</div>
+<aside class="strip" id="k3"></aside></div>
 </section>
 
 <div class="foot" id="srcs"></div>
@@ -207,9 +252,12 @@ function H(p,a,t,rows){const r=E("rect",{...a,class:"hit"},p);r.addEventListener
 function col(p,x,y,w,h,f){E("rect",{x,y,width:w,height:Math.max(0,h),fill:f},p)}
 function rb(p,x,y,w,h,f,dir=1){if(w<=0)return;E("rect",{x:dir>0?x:x-w,y,width:w,height:h,fill:f},p)}
 function grid(p,L,R,T0,B,max,step,fmt){for(let v=0;v<=max+1e-9;v+=step){const y=B-v/max*(B-T0);E("line",{x1:L,x2:R,y1:y,y2:y,stroke:v===0?"#9aa3b3":"var(--grid)"},p);T(p,L-7,y+3.5,fmt(v),"ax","end")}}
-function spark(vals){const W=200,H=26;const s=E("svg",{viewBox:`0 0 ${W} ${H}`,preserveAspectRatio:"none"});const mn=Math.min(...vals),mx=Math.max(...vals);const X=i=>i/(vals.length-1)*W,Y=v=>H-3-(v-mn)/(mx-mn||1)*(H-6);
- E("polyline",{points:vals.map((v,i)=>`${X(i)},${Y(v)}`).join(" "),fill:"none",stroke:"var(--n6)","stroke-width":1.4,"vector-effect":"non-scaling-stroke"},s);
- E("circle",{cx:X(vals.length-1),cy:Y(vals[vals.length-1]),r:2.4,fill:"var(--n9)"},s);return s}
+function PL(p,x,y,s,dark=true){const w=s.length*6.4+12;const g=E("g",{class:"pill"},p);E("rect",{x:x-w/2,y:y-15,width:w,height:17,rx:4,fill:dark?"var(--n9)":"#fff",stroke:dark?"none":"var(--n4)"},g);T(g,x,y-3,s,"plt","middle",{fill:dark?"#fff":"var(--n9)","font-size":"10.5","font-weight":"700"});return g}
+function spark(vals){const W=200,H=54;const s=E("svg",{viewBox:`0 0 ${W} ${H}`,preserveAspectRatio:"none"});const mn=Math.min(...vals),mx=Math.max(...vals);const X=i=>i/(vals.length-1)*W,Y=v=>H-4-(v-mn)/(mx-mn||1)*(H-14);
+ const pts=vals.map((v,i)=>`${X(i)},${Y(v)}`).join(" ");
+ E("polygon",{points:`0,${H} ${pts} ${W},${H}`,fill:"var(--n2)"},s);
+ E("polyline",{points:pts,fill:"none",stroke:"var(--n6)","stroke-width":1.6,"vector-effect":"non-scaling-stroke","stroke-linejoin":"round"},s);
+ return s}
 function strip(id,items){const h=document.getElementById(id);h.innerHTML="";items.forEach(o=>{const d=document.createElement("div");d.className="k";
  d.innerHTML=`<div class="l">${o.l}</div><div class="v tab">${o.v}</div><div class="c">${o.b?`<b class="${o.bc||"nt"}">${o.b}</b> `:""}${o.c}</div>`;if(o.sp)d.appendChild(spark(o.sp));h.appendChild(d)})}
 
@@ -223,7 +271,7 @@ strip("k1",[
 
 (function(){const W=860,Hh=300,L=44,R=W-8,T0=24,B=Hh-56;const s=S("ch_thru",W,Hh);const max=2400;grid(s,L,R,T0,B,max,600,v=>v?(v/1000).toFixed(1)+"K":"0");
  const n=PER.length,slot=(R-L)/n,bw=slot*.6,Y=v=>B-v/max*(B-T0);const vals=PER.map(p=>p[3]);const mx=vals.indexOf(Math.max(...vals)),mn=vals.indexOf(Math.min(...vals));
- PER.forEach((p,i)=>{const x=L+slot*i+(slot-bw)/2;col(s,x,Y(p[3]),bw,B-Y(p[3]),i===mx?"var(--n9)":i===mn?"var(--y)":"var(--n4)");T(s,x+bw/2,Y(p[3])-6,f0(p[3]),"vl","middle");T(s,x+bw/2,B+15,p[1],"ax","middle");
+ PER.forEach((p,i)=>{const x=L+slot*i+(slot-bw)/2;col(s,x,Y(p[3]),bw,B-Y(p[3]),i===mx?"var(--n9)":i===mn?"var(--y)":"var(--n4)");PL(s,x+bw/2,Y(p[3])-5,(p[3]/1000).toFixed(1)+"K",i===mx||i===mn);T(s,x+bw/2,B+15,p[1],"ax","middle");
   if(i){const ch=(p[3]-PER[i-1][3])/PER[i-1][3];T(s,x+bw/2,B+29,(ch>=0?"+":"−")+Math.abs(Math.round(ch*100))+"%","an","middle",{fill:ch>=0?"var(--up)":"var(--dn)"})}
   H(s,{x:L+slot*i,y:T0,width:slot,height:B-T0+32},`${p[0]} to ${p[1]} 2026`,[["Trucks per day",f0(p[3])],["Days",p[2]],["vs year average",(p[3]>=1781?"+":"")+pc(p[3]/1781-1)]])});
  const ya=Y(1781);E("line",{x1:L,x2:R,y1:ya,y2:ya,stroke:"var(--n9)","stroke-dasharray":"4 3"},s);
@@ -235,7 +283,7 @@ strip("k1",[
  const n=SNAP.length,X=i=>L+18+i*(R-L-36)/(n-1),P=SNAP.map((d,i)=>[X(i),Y(d[4]/d[1])]);
  E("polyline",{points:P.map(p=>p.join(",")).join(" "),fill:"none",stroke:"var(--n9)","stroke-width":1.8},s);
  SNAP.forEach((d,i)=>{const r=d[4]/d[1];E("circle",{cx:P[i][0],cy:P[i][1],r:5,fill:r>.2?"var(--y)":r>.1?"var(--watch)":"var(--n5)",stroke:r>.2?"var(--n9)":"#fff","stroke-width":r>.2?1.1:2},s);
-  T(s,P[i][0],P[i][1]-10,Math.round(r*100)+"%","vlb","middle");T(s,P[i][0],B+15,d[0],"ax","middle");
+  PL(s,P[i][0],P[i][1]-9,Math.round(r*100)+"%");T(s,P[i][0],B+15,d[0],"ax","middle");
   H(s,{x:P[i][0]-24,y:T0,width:48,height:B-T0},d[0]+" 2026",[["Queue pressure",pc(r)],["Waiting at 20:00",f0(d[4])],["Cleared",f0(d[1])]])});
  T(s,(L+R)/2,Hh-3,"Reported days, not evenly spaced","axs","middle")})();
 
@@ -310,7 +358,7 @@ function page3(){const rows=TR.days[selDay.value].map(t=>({id:t[0],tm:t[1],dst:t
   {l:"Delayed (1.5 to 2×)",v:del,b:"monitor",bc:"nt",c:"keep the warehouse informed"},{l:"Need a delay update (> 2×)",v:ntf,b:ntf?"action":"none",bc:ntf?"dn":"nt",c:"customer to be notified"},
   {l:"Hours over plan, total",v:(over/60).toFixed(1)+"<small> h</small>",b:hrs(over/rows.length),bc:"nt",c:"average per truck"}]);
  // dumbbell
- const W=760,rh=30,Hh=rows.length*rh+52,L=210,R=W-70,T0=10;const s=S("ch_db",W,Hh);const mx=Math.max(...rows.map(r=>r.act))/60;const step=mx>30?10:mx>12?4:2,max=Math.ceil(mx/step)*step;const X=m=>L+(m/60)/max*(R-L);
+ const W=1180,rh=30,Hh=rows.length*rh+52,L=230,R=W-70,T0=10;const s=S("ch_db",W,Hh);const mx=Math.max(...rows.map(r=>r.act))/60;const step=mx>30?10:mx>12?4:2,max=Math.ceil(mx/step)*step;const X=m=>L+(m/60)/max*(R-L);
  for(let v=0;v<=max;v+=step){const x=L+v/max*(R-L);E("line",{x1:x,x2:x,y1:T0,y2:T0+rows.length*rh,stroke:v?"var(--grid)":"#9aa3b3"},s);T(s,x,T0+rows.length*rh+15,v+" h","ax","middle")}
  rows.forEach((r,i)=>{const y=T0+i*rh+rh/2,[lab,c]=stat(r.r);const loop=r.dst==="Bangalore Nelmngla H";
   T(s,0,y-2,r.tm+"  ·  "+(loop?"Loop via "+r.seg+" stops":r.dst),"axs");T(s,0,y+11,"Trip …"+r.id+" · "+f0(r.km)+" km","ax");
@@ -322,25 +370,9 @@ function page3(){const rows=TR.days[selDay.value].map(t=>({id:t[0],tm:t[1],dst:t
  const t=document.getElementById("tb_lp");let h=`<tr><th class="l">Trip</th><th class="l">Trip created</th><th class="l">Destination</th><th>Stops</th><th>Route km</th><th>Plan</th><th>Actual</th><th>Over plan</th><th>× plan</th><th class="l">Truck / container / driver</th><th class="l">Status</th></tr>`;
  rows.forEach((r,i)=>{const[lab,c]=stat(r.r);const loop=r.dst==="Bangalore Nelmngla H";h+=`<tr data-i="${i}" class="${r.r>2?"flag":""}" style="cursor:pointer"><td class="l">…${r.id}</td><td class="l">${r.tm}</td><td class="l">${loop?"Loop, back to hub":r.dst+", "+r.st}</td><td>${r.seg}</td><td>${f0(r.km)}</td><td>${hrs(r.plan)}</td><td>${hrs(r.act)}</td><td>+${hrs(r.act-r.plan)}</td><td>${r.r.toFixed(2)}</td><td class="l muted">to confirm with supplier</td><td class="l"><span class="mk" style="background:${c};${r.r>2?"box-shadow:inset 0 0 0 1px var(--n9)":""}"></span>${r.r>2?"<b>"+lab+"</b>":lab}</td></tr>`});
  t.innerHTML=h;t.querySelectorAll("tr[data-i]").forEach(tr=>tr.onclick=()=>pick(rows[+tr.dataset.i]));
- const first=rows.filter(r=>r.r>2).sort((a,b)=>b.r-a.r)[0]||rows[0];pick(first)}
+ pick.ready=0;const first=rows.filter(r=>r.r>2).sort((a,b)=>b.r-a.r)[0]||rows[0];pick(first)}
 function pick(r){SEL=r;document.querySelectorAll("#tb_lp tr").forEach(tr=>tr.classList.toggle("sel",tr.dataset.i!==undefined&&TR.days[selDay.value][+tr.dataset.i][0]===r.id));
- const loop=r.dst==="Bangalore Nelmngla H",[lab]=stat(r.r),day=fmtDay(selDay.value);
- const txt=r.r>2?`Subject: Delay update, trip …${r.id} (${day})
-
-Dear customer,
-
-Your shipment on trip …${r.id}, created at Bangalore Nelamangala hub at ${r.tm}, is running behind plan. The planned transit time was ${hrs(r.plan)}; the truck needed ${hrs(r.act)} to reach ${loop?"its final stop":r.dst+" ("+r.st+")"}, ${hrs(r.act-r.plan)} more than planned.
-
-We are following the truck with the carrier and will confirm the new delivery slot with your warehouse team. Sorry for the inconvenience.
-
-Best regards,
-Road Logistics team`:r.r>1.5?`Internal note, trip …${r.id} (${day})
-
-Trip is ${r.r.toFixed(2)}× plan (${hrs(r.act)} vs ${hrs(r.plan)}). Status: ${lab}. Inform the receiving warehouse of the later arrival and keep tracking with the carrier. No customer message needed yet.`:`Trip …${r.id} (${day})
-
-On plan: ${hrs(r.act)} vs ${hrs(r.plan)} planned (${r.r.toFixed(2)}×). No update needed; record arrival in the daily report.`;
- document.getElementById("draft").textContent=txt;document.getElementById("copied").textContent=""}
-document.getElementById("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(document.getElementById("draft").textContent);document.getElementById("copied").textContent="Copied"}catch(e){document.getElementById("copied").textContent="Copy is blocked here; select the text instead"}};
+ const tr=[...document.querySelectorAll("#tb_lp tr.sel")][0];if(tr&&pick.ready)tr.scrollIntoView({block:"nearest",behavior:"smooth"});pick.ready=1}
 
 /* ============ filters ============ */
 const selPage=document.getElementById("selPage"),selRT=document.getElementById("selRT");
